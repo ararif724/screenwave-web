@@ -1,0 +1,77 @@
+
+
+    /* public function saveVideo(Request $request){
+        $identity_token = $request->identity_token;
+        $video_id = $request->video_id;
+        
+        $response = array(
+            'status'=> 200,
+            'message'=> 'Video Successfully Saved. Click to preview!',
+            'src'=> null
+        );
+
+        if((!$identity_token || empty($identity_token)) && (!$video_id || empty($video_id))){
+            $response['status'] = 403;
+            $response['message'] = 'Your `Identity Token` & `Video ID` is undefined/missing!';  
+            
+            return response()->json($response);
+        }
+
+        if(!$identity_token || empty($identity_token)){
+            $response['status'] = 403;
+            $response['message'] = 'Your Identity Token is undefined/missing!';  
+            
+            return response()->json($response);
+        }
+
+        if(!$video_id || empty($video_id)){
+            $response['status'] = 403;
+            $response['message'] = 'Your Video ID is undefined/missing!'; 
+            
+            return response()->json($response);
+        }
+
+        $find_user = User::where('identity_token', $identity_token)->latest('id')->first();
+        
+        if(!$find_user){
+            $response['status'] = 404;
+            $response['message'] = 'User is not register yet!';
+            
+            return response()->json($response);
+        }else{
+            $video = Video::where('user_id', $find_user->id)->where('video_id', $video_id);
+
+            if($video->exists()){
+                $existing_video = $video->first();
+            
+                // $compact = ['video' => $existing_video, 'user'=> $find_user];
+                $response['message'] = 'This Video is already exists. you can checkout from here!';
+                $response['src'] = array(
+                    'title'=> '',
+                    'name'=> $existing_video->name,
+                    'email'=> $existing_video->email,
+                    'url'=> route('frontend.video', ['user_id'=> $existing_video->user_id, 'video_id'=> $existing_video->video_id]),
+                    'embedCode'=> HelperClass::googleDriveVideoIframe($existing_video->video_id) #view('client.home', compact('compact')),
+                );
+
+                return response()->json($response);
+            }
+
+            $saved_video_reference = Video::create(['user_id'=> $find_user->id, 'video_id'=> $video_id]);
+            $response['message'] = 'New Video';
+            $response['src'] = array(
+                'title'=> '',
+                'name'=> $find_user->name,
+                'email'=> $find_user->email,
+                'embedCode'=> HelperClass::googleDriveVideoIframe($saved_video_reference->video_id),
+                'url'=> route('frontend.video', ['user_id'=> $saved_video_reference->user_id, 'video_id'=> $saved_video_reference->video_id]),
+            );
+
+            if($saved_video_reference) return response()->json($response);
+        }
+
+        $response['status'] = 500;
+        $response['message'] = 'Internal Errors! Something went wrong!';
+
+        return response()->json($response);
+    } */
