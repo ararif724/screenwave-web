@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GoogleOAuthController extends Controller
 {
-    function auth(Request $request, $desktopAppRedirectUrl)
+    function auth($desktopAppRedirectUrl = null)
     {
-        $request->session()->put('desktopAppRedirectUrl', $desktopAppRedirectUrl);
+
+        session()->forget('desktopAppRedirectUrl');
+
+        if ($desktopAppRedirectUrl) {
+
+            session()->put('desktopAppRedirectUrl', $desktopAppRedirectUrl);
+
+            if (Auth::check()) {
+                return $this->redirectToDriveScopeOAuthUrl();
+            }
+        }
+
         return redirect(
             $this->getOAuthUrl(
                 'email profile',
@@ -57,24 +69,23 @@ class GoogleOAuthController extends Controller
                 ) {
                     $identityToken = sha1($resp->email . uniqid(rand(1000, 9999)));
 
-                    User::updateOrCreate(
+                    $user = User::firstOrCreate(
                         ['email' => $resp->email],
                         [
-                            'email' => $resp->email,
                             'name' => $resp->name,
                             'picture' => $resp->picture,
                             'identity_token' => $identityToken,
                         ]
                     );
 
-                    $request->session()->flash('identityToken', $identityToken);
+                    Auth::login($user, true);
 
-                    return redirect(
-                        $this->getOAuthUrl(
-                            'https://www.googleapis.com/auth/drive.file',
-                            route('google.oAuth.callback.driveScope')
-                        )
-                    );
+                    if (session()->has('desktopAppRedirectUrl')) {
+                        return $this->redirectToDriveScopeOAuthUrl();
+                    } else {
+                        //redirect to dashboard
+                        return 'dashboard';
+                    }
                 }
             }
         }
@@ -107,14 +118,23 @@ class GoogleOAuthController extends Controller
 
                 return view('redirectToDesktopApp', [
                     'redirectUrl' => session('desktopAppRedirectUrl') . '?data=' . json_encode([
-                        'access_token' => $resp->access_token,
-                        'refresh_token' => $resp->refresh_token,
-                        'identity_token' => session('identityToken')
+                        'googleApiRefreshToken' => $resp->refresh_token,
+                        'screenwaveWebIdentityToken' => Auth::user()->identity_token
                     ])
                 ]);
             }
         }
         return response('Bad request', 400);
+    }
+
+    private function redirectToDriveScopeOAuthUrl()
+    {
+        return redirect(
+            $this->getOAuthUrl(
+                'https://www.googleapis.com/auth/drive.file',
+                route('google.oAuth.callback.driveScope')
+            )
+        );
     }
 
     private function getOAuthUrl($scope, $redirectUrl)

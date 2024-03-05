@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('picture');
             $table->string('email')->unique();
             $table->string('identity_token', 50)->unique();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -23,5 +23,5 @@ Route::prefix('google-o-auth')->group(function (){
         Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('google.oAuth.callback.profileScope');
         Route::get('/drive-scope', [GoogleOAuthController::class, 'callbackDriveScope'])->name('google.oAuth.callback.driveScope');
     });
-    Route::get('/{desktopAppRedirectUrl}', [GoogleOAuthController::class, 'auth'])->where('desktopAppRedirectUrl', '.*');
+    Route::get('/{desktopAppRedirectUrl?}', [GoogleOAuthController::class, 'auth'])->where('desktopAppRedirectUrl', '.*');
 });
