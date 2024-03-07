@@ -147,10 +147,6 @@ class ClientController extends Controller
     }
     // user show instant video
     public function myVideo(Request $request){
-        info(Auth::user());
-
-        info(session()->get('identityToken'));
-
         // initiate a returning response
         $video = array(
             'status'=> 200,

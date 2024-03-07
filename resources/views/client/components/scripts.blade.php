@@ -19,9 +19,9 @@
     const csrfToken = () => document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const isAuth = @json(Auth::check()); 
-    const userName = '{{ Auth::user()->name }}'
-    const userEmail = '{{ Auth::user()->email }}'
-    const userPicture = '{{ Auth::user()->picture }}'
+    const userName = '{{ Auth::check() ? Auth::user()->name : '' }}'
+    const userEmail = '{{ Auth::check() ? Auth::user()->email : '' }}'
+    const userPicture = '{{ Auth::check() ? Auth::user()->picture : '' }}'
 </script>
 
 @if (session('error'))

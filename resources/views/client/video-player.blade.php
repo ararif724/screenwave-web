@@ -113,8 +113,6 @@
               <p
                 class="break-words tracking-wide leading-6 pb-2 sm:pb-0 text-2xl md:text-3xl text-secondary"
               >
-                <!--Figma Autolayout Wrap: Unlocking Seamless and Responsive Designs!
-                | CONFIG 2023 -->
                 {{ $video['video']['title'] }}
               </p>
               <small class="text-md font-poppins text-slate-500 italic"
@@ -139,7 +137,8 @@
                   </svg>
                 </button>
               </div>
-
+              @else
+              <i class="hidden" video-title></i>
             @endif
           </div>
         </div>
@@ -215,7 +214,7 @@
             <div
               class="w-16 h-16 flex items-center justify-center bg-white/30 shadow-main rounded-full duration-500 hover:bg-primary group hover:drop-shadow-primary"
             >
-              <i class="m-auto" id="share-icon"
+              <i class="m-auto cursor-pointer" id="share-icon"
                 ><svg
                   width="30"
                   height="27"
@@ -323,8 +322,6 @@
                     <figure>
                       <img 
                         src="{{ $comment['user']['picture'] }}"
-                        {{-- src="{{ App\Helper\HelperClass::makeAvatar($comment['user']['picture'], Avatar::create($comment['user']['name'])->toBase64()) }}" --}}
-                        {{-- src="{{ file_get_contents($comment['user']['picture']) ? $comment['user']['picture'] : Avatar::create($comment['user']['name'])->toBase64() }}" --}}
                         class="!w-10 !h-10 !min-w-10 rounded-full border border-primary shadow-main"
                         alt="User Profile Image"
                       />
@@ -395,32 +392,32 @@
 
 
   <footer></footer>
-<div class="hidden">
-  <div class="fixed top-0 left-0 w-full bg-black/50 min-h-screen flex items-center justify-center z-20 font-oswald" id="edit-form">
-    <form
-      class="container xl:max-w-3xl w-full object-cover bg-cover h-full p-4 md:p-10 rounded-lg shadow-primary-deep relative"
-      style="background-image: url('{{ asset('/assets/images/bg.jpg') }}')">
-      @csrf
-      
-      <div class="absolute top-2 right-2">
-        <button class="text-lg font-bold bg-primary duration-500 text-slate-100 hover:bg-red-500 py-1 px-3 rounded-full hover:rotate-90" id="remove-edit-form">X</button>
-      </div>
-      
-      <div>
-        <label for="change_video_title" class="text-md font-light text-slate-600 capitalize mb-1 font-jockey">Change Your Video Title: <span class="text-sm pl-1 text-red-400 font-light font-poppins">(max 254 letters)</span></label>
-        <input type="text" class="w-full text-lg font-mono text-secondary font-semibold focus:border-4 focus:border-primary px-4 py-1.5 bg-slate-200 rounded outline-none border-solid border border-slate-600" value="{{ $video['video']['title'] }}">
-      </div>
 
-      <div class="mt-4 w-full flex gap-4 items-center justify-end">
-        <button class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-primary hover:drop-shadow-primary duration-500 uppercase bg-secondary text-slate-100 py-1 px-3">update</button>
-        <p class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-red-500 hover:drop-shadow-primary duration-500 uppercase bg-red-400 text-slate-100 py-1 px-3">delete</p>
-      </div>
-    </form>
-  </div>
+  {{-- <div class="!hidden">
+    <div class="fixed top-0 left-0 w-full bg-black/50 min-h-screen flex items-center justify-center z-20 font-oswald" id="edit-form">
+      <form
+        class="container xl:max-w-3xl w-full object-cover bg-cover h-full p-4 md:p-10 rounded-lg shadow-primary-deep relative"
+        style="background-image: url('{{ asset('/assets/images/bg.jpg') }}')">
+        @csrf
+        
+        <div class="absolute top-2 right-2">
+          <button class="text-lg font-bold bg-primary duration-500 text-slate-100 hover:bg-red-500 py-1 px-3 rounded-full hover:rotate-90" id="remove-edit-form">X</button>
+        </div>
+        
+        <div>
+          <label for="change_video_title" class="text-md font-light text-slate-600 capitalize mb-1 font-jockey">Change Your Video Title: <span class="text-sm pl-1 text-red-400 font-light font-poppins">(max 254 letters)</span></label>
+          <input type="text" class="w-full text-lg font-mono text-secondary font-semibold focus:border-4 focus:border-primary px-4 py-1.5 bg-slate-200 rounded outline-none border-solid border border-slate-600" value="{{ $video['video']['title'] }}">
+        </div>
+
+        <div class="mt-4 w-full flex gap-4 items-center justify-end">
+          <button class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-primary hover:drop-shadow-primary duration-500 uppercase bg-secondary text-slate-100 py-1 px-3">update</button>
+          <p class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-red-500 hover:drop-shadow-primary duration-500 uppercase bg-red-400 text-slate-100 py-1 px-3">delete</p>
+        </div>
+      </form>
+    </div> --}}
 </section>
   
 
-{{-- console.log(@json($video)); --}}
 <script> 
 </script>
 <script src="{{ asset('assets/js/video-player.js') }}"></script>

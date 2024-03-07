@@ -754,4 +754,9 @@ dislikeBtn.onclick = async function () {
 //     </button>
 // </div>
 
+{{-- console.log(@json($video)); 
+                        { {-- src="{{ App\Helper\HelperClass::makeAvatar($comment['user']['picture'], Avatar::create($comment['user']['name'])->toBase64()) }}" --} }
+                        { {-- src="{{ file_get_contents($comment['user']['picture']) ? $comment['user']['picture'] : Avatar::create($comment['user']['name'])->toBase64() }}" -- }}--}}
+                <!--Figma Autolayout Wrap: Unlocking Seamless and Responsive Designs!
+                | CONFIG 2023 -->
                         
