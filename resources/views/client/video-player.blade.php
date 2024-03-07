@@ -21,7 +21,7 @@
   style="background-image: url('{{ asset('/assets/images/bg.jpg') }}')"
 >
   <header>
-    <nav class="fixed left-0 top-0 flex items-center justify-start">
+    <nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex items-center justify-start">
       @auth 
         <div class="m-6 p-4 bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-start group" login-bubble>
           <div class="flex shadow-primary-deep items-start justify-start w-full md:w-auto bg-transparent">
