@@ -1,0 +1,762 @@
+
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Mohammad Amir Ali</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Jon Marsshal Doe</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          {{ __('@screen-wave') }}
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis molestiae quos,
+                        corporis ipsa quis accusamus autem voluptatem similique,
+                        a, quod consectetur ducimus. Corrupti eaque laborum
+                        laudantium exercitationem.
+                      </p>
+                      <div class="absolute bottom-0 right-0 p-1">
+                        <button
+                          class="cursor-pointer font-semibold bg-white pl-6 text-secondary duration-300 hover:underline italic hover:text-primary pr-2 py-0.5 text-sm"
+                        >
+                          show more...
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Mohammad Amir Ali</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Jon Marsshal Doe</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis molestiae quos,
+                        corporis ipsa quis accusamus autem voluptatem similique,
+                        a, quod consectetur ducimus. Corrupti eaque laborum
+                        laudantium exercitationem.
+                      </p>
+                      <div class="absolute bottom-0 right-0 p-1">
+                        <button
+                          class="cursor-pointer font-semibold bg-white pl-6 text-secondary duration-300 hover:underline italic hover:text-primary pr-2 py-0.5 text-sm"
+                        >
+                          show more...
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Mohammad Amir Ali</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Jon Marsshal Doe</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis molestiae quos,
+                        corporis ipsa quis accusamus autem voluptatem similique,
+                        a, quod consectetur ducimus. Corrupti eaque laborum
+                        laudantium exercitationem.
+                      </p>
+                      <div class="absolute bottom-0 right-0 p-1">
+                        <button
+                          class="cursor-pointer font-semibold bg-white pl-6 text-secondary duration-300 hover:underline italic hover:text-primary pr-2 py-0.5 text-sm"
+                        >
+                          show more...
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Mohammad Amir Ali</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Jon Marsshal Doe</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis molestiae quos,
+                        corporis ipsa quis accusamus autem voluptatem similique,
+                        a, quod consectetur ducimus. Corrupti eaque laborum
+                        laudantium exercitationem.
+                      </p>
+                      <div class="absolute bottom-0 right-0 p-1">
+                        <button
+                          class="cursor-pointer font-semibold bg-white pl-6 text-secondary duration-300 hover:underline italic hover:text-primary pr-2 py-0.5 text-sm"
+                        >
+                          show more...
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3"
+              >
+                <div class="flex gap-4">
+                  <figure>
+                    <img
+                      src="{{ asset('/assets/images/man.jpg') }}"
+                      class="min-w-10 h-10 rounded-full border border-primary shadow-main"
+                      alt="User Profile Image"
+                    />
+                  </figure>
+                  <div class="my-auto">
+                    <div class="w-full flex items-center justify-between">
+                      <div class="my-auto">
+                        <h1 class="leading-3">
+                          <span
+                            class="text-2xl font-medium font-primary capitalize text-primary tracking-wide"
+                            >Mohammad Amir Ali</span
+                          ><br class="block sm:hidden" /><span
+                            class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
+                            >01 hour 35 min ago.</span
+                          >
+                        </h1>
+                        <p
+                          class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
+                        >
+                          @screen-wave
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 192 512"
+                            width="26"
+                            height="26"
+                          >
+                            <path
+                              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
+                    >
+                      <p class="leading-6">
+                        Lorem, ipsum dolor sit amet consectetur quod adipisicing
+                        elit. Delectus enim voluptatibus debitis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+/**
+ * 
+ 
+ ;
+                $video['src'] = array(
+                    'title'=> '',
+                    'name'=> $find_user->name,
+                    'email'=> $find_user->email,
+                    'video_id'=> $existing_video->video_id,
+                    'embedCode'=> HelperClass::googleDriveVideoIframe($existing_video->video_id), // return an direct iframe followed by drive view
+                    'url'=> route('frontend.video', ['user_id'=> $existing_video->user_id, 'video_id'=> $existing_video->video_id]),
+                );
+ $video['src'] = array(
+                'title'=> '',
+                'name'=> $find_user->name,
+                'email'=> $find_user->email,
+                'video_id'=> $saved_video_reference->video_id,
+                'embedCode'=> HelperClass::googleDriveVideoIframe($saved_video_reference->video_id),
+                'url'=> route('frontend.video', ['user_id'=> $saved_video_reference->user_id, 'video_id'=> $saved_video_reference->video_id]),
+            );
+
+array(
+                    'title'=> '',
+                    'name'=> $find_user->name,
+                    'email'=> $find_user->email,
+                    'video_id'=> $existing_video->video_id,
+                    'embedCode'=> HelperClass::googleDriveVideoIframe($existing_video->video_id),
+                    'url'=> route('frontend.video', ['user_id'=> $existing_video->user_id, 'video_id'=> $existing_video->video_id]),
+                );
+
+array(
+                'title'=> '',
+                'name'=> $find_user->name,
+                'email'=> $find_user->email,
+                'video_id'=> $saved_video_reference->video_id,
+                'embedCode'=> HelperClass::googleDriveVideoIframe($saved_video_reference->video_id),
+                'url'=> route('frontend.video', ['user_id'=> $saved_video_reference->user_id, 'video_id'=> $saved_video_reference->video_id]),
+            );
+                $response['src'] = array(
+                    'title'=> '',
+                    'name'=> $find_user->name,
+                    'email'=> $find_user->email,
+                    'video_id'=> $existing_video->video_id,
+                    'embedCode'=> HelperClass::googleDriveVideoIframe($existing_video->video_id),
+                    'url'=> route('frontend.video', ['user_id'=> $existing_video->user_id, 'video_id'=> $existing_video->video_id]),
+                );
+ * 
+ */
+        {{-- <figure class="flex items-start justify-start h-full">
+          <img src="{{ asset('assets/icons/stars-magic-circle.svg') }}" alt="check circle">
+        </figure> --}}
+            {{-- <figure class="cursor-pointer">
+              <span class="fill-red-500 text-primary -mt-1">  
+                <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"> <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+              </span>
+            </figure> --}}
+
+// console.log(url);
+// console.log(data.like, prevLike);
+// console.log(data.like, prevLike);
+// const isAuth = "{{ Auth::check() ? 1 : 0 }}";
+
+// console.log(isAuth);
+/* 
+
+                // if (dislikeContent.classList.contains("active")) {
+                //     let prevDislike = dislikeContent.querySelector("p");
+                //     prevDislike.innerHTML = Number(prevDislike.innerHTML) - 1;
+                // }
+
+                // if (data.like) {
+                //     likeContent.classList.add("active");
+                //     dislikeContent.classList.remove("active");
+
+                //     let prevLike = likeContent.querySelector("p");
+                //     prevLike.innerHTML = Number(prevLike.innerHTML) + 1;
+                // } else {
+                //     likeContent.classList.remove("active");
+                //     dislikeContent.classList.remove("active");
+
+                //     let prevLike = likeContent.querySelector("p");
+                //     prevLike.innerHTML = Number(prevLike.innerHTML) - 1;
+                // }
+                // if (likeContent.classList.contains("active")) {
+                //     let prevLike = likeContent.querySelector("p");
+                //     prevLike.innerHTML = Number(prevLike.innerHTML) - 1;
+                // }
+
+                // if (data.dislike) {
+                //     likeContent.classList.remove("active");
+                //     dislikeContent.classList.add("active");
+
+                //     let prevDislike = dislikeContent.querySelector("p");
+                //     prevDislike.innerHTML = Number(prevDislike.innerHTML) + 1;
+                // } else {
+                //     likeContent.classList.remove("active");
+                //     dislikeContent.classList.remove("active");
+
+                //     let prevDislike = dislikeContent.querySelector("p");
+                //     prevDislike.innerHTML = Number(prevDislike.innerHTML) - 1;
+                // }
+
+                    'like'=> $data->like,
+                    'dislike'=> $data->dislike,
+
+                    'like'=> $data->like,
+                    'dislike'=> $data->dislike,
+
+                    'like'=> $data->like,
+                    'dislike'=> $data->dislike,
+
+                    'like'=> $data->like,
+                    'dislike'=> $data->dislike,
+
+const loginBubble = document.querySelector("[login-bubble]");
+const likeBtn = document.querySelector("[like-button]");
+const dislikeBtn = document.querySelector("[dislike-button]");
+
+loginBubble.onclick = () => loginBubble.classList.toggle("active");
+
+likeBtn.onclick = async function () {
+    const url = likeBtn.getAttribute("like-button");
+
+    if (isAuth) {
+        if (url !== "#") {
+            const response = await fetch(url);
+            const data = await response.json();
+            const likeContent = document.getElementById("like-content");
+            const dislikeContent = document.getElementById("dislike-content");
+
+            if (data.status === 200) {
+                if (dislikeContent.classList.contains("active")) {
+                    let prevDislike = dislikeContent.querySelector("p");
+                    prevDislike.innerHTML = Number(prevDislike.innerHTML) - 1;
+                }
+
+                if (data.like) {
+                    likeContent.classList.add("active");
+                    dislikeContent.classList.remove("active");
+
+                    let prevLike = likeContent.querySelector("p");
+                    prevLike.innerHTML = Number(prevLike.innerHTML) + 1;
+                } else {
+                    likeContent.classList.remove("active");
+                    dislikeContent.classList.remove("active");
+
+                    let prevLike = likeContent.querySelector("p");
+                    prevLike.innerHTML = Number(prevLike.innerHTML) - 1;
+                }
+            }
+            console.log(data);
+        }
+    }
+};
+
+dislikeBtn.onclick = async function () {
+    const url = dislikeBtn.getAttribute("dislike-button");
+
+    if (isAuth) {
+        if (url !== "#") {
+            const response = await fetch(url);
+            const data = await response.json();
+            const likeContent = document.getElementById("like-content");
+            const dislikeContent = document.getElementById("dislike-content");
+
+            if (data.status === 200) {
+                if (likeContent.classList.contains("active")) {
+                    let prevLike = likeContent.querySelector("p");
+                    prevLike.innerHTML = Number(prevLike.innerHTML) - 1;
+                }
+
+                if (data.dislike) {
+                    likeContent.classList.remove("active");
+                    dislikeContent.classList.add("active");
+
+                    let prevDislike = dislikeContent.querySelector("p");
+                    prevDislike.innerHTML = Number(prevDislike.innerHTML) + 1;
+                } else {
+                    likeContent.classList.remove("active");
+                    dislikeContent.classList.remove("active");
+
+                    let prevDislike = dislikeContent.querySelector("p");
+                    prevDislike.innerHTML = Number(prevDislike.innerHTML) - 1;
+                }
+            }
+            console.log(data);
+        }
+    }
+};
+
+*/
+{{-- 
+                    {{ json_encode(['file' => file_exists($comment['user']['picture']), 'path'=> $comment['user']['picture'] ]) }}
+                          src="{{ App\Helper\HelperClass::makeAvatar($comment['user']['picture'], $comment['user']['name']) }}" --}}
+//<div class="mt-4 w-full flex items-center justify-end">
+//     <button class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-primary hover:drop-shadow-primary duration-500 uppercase bg-secondary text-slate-100 py-1 px-3">
+//         update
+//     </button>
+// </div>
+
+{{-- console.log(@json($video)); 
+                        { {-- src="{{ App\Helper\HelperClass::makeAvatar($comment['user']['picture'], Avatar::create($comment['user']['name'])->toBase64()) }}" --} }
+                        { {-- src="{{ file_get_contents($comment['user']['picture']) ? $comment['user']['picture'] : Avatar::create($comment['user']['name'])->toBase64() }}" -- }}--}}
+                <!--Figma Autolayout Wrap: Unlocking Seamless and Responsive Designs!
+                | CONFIG 2023 -->
+                        
