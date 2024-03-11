@@ -760,3 +760,269 @@ dislikeBtn.onclick = async function () {
                 <!--Figma Autolayout Wrap: Unlocking Seamless and Responsive Designs!
                 | CONFIG 2023 -->
                         
+
+    // user show instant video
+    public function myVideo(Request $request){
+        // initiate a returning response
+        $video = array(
+            'status'=> 200,
+            'message'=> 'Video Successfully Saved. Click to preview!',
+            'src'=> array(
+                'url'=> route('frontend.home')
+            )
+        );
+        
+        // store the token and video id from request
+        $identity_token = $request->identity_token;
+        $video_id = $request->video_id; 
+
+        // check the identity token and video id is available or not
+        if((!$identity_token || empty($identity_token)) && (!$video_id || empty($video_id))){
+            return response('Your `Identity Token` & `Video ID` is undefined/missing!', 403);  
+        }
+
+        // check the identity token
+        if(!$identity_token || empty($identity_token)){
+            return response('Your Identity Token is undefined/missing!', 403);
+        }
+        
+        // check the video id
+        if(!$video_id || empty($video_id)){
+            return response('Your Video ID is undefined/missing!', 403);  
+        }
+
+        // find and get the user from our user's model and store
+        $find_user = User::where('identity_token', $identity_token)->latest('id')->first();
+        $video['user'] = $find_user; // send the user's credential
+
+        // check the user is exists
+        if(!$find_user){
+            return response('User is not registered yet!', 403);  
+        }else{
+            // if the user is exists then get video data from video model
+            $get_video = Video::where('user_id', $find_user->id)->where('video_id', $video_id);
+            // check the video is already exists or not in our video model
+            if($get_video->exists()){
+                $get_video->increment('views'); // increment the existing video views on every checking/refreshing
+                $existing_video = $get_video->first(); 
+                $video['message'] = 'Video is available!'; // make an message
+
+                // if video is exists order by the video id then make an existing video data array to send the client
+                $video['video'] = $existing_video;
+
+                // return a direct preview window based on the video an user reference
+                return view('client.video-player', compact('video'));
+            }
+            
+            // if video is not exists then save the video credentials and get the new video data 
+            $saved_video_reference = Video::create(['user_id'=> $find_user->id, 'video_id'=> $video_id]); 
+            $video['video'] = $saved_video_reference;
+
+            // if video created successfully then return a video player window
+            if($saved_video_reference) return view('client.video-player', compact('video'));
+        } 
+
+        // return an default response with error message!
+        return response('Internal Errors! Something went wrong!', 403);  
+    }
+
+    public function video(string $user_id, string $video_id){
+        $video = $this->useSaveVideo($video_id, null, $user_id);
+        return view('client.video-player', compact('video'));
+    }
+
+    public function saveVideo(Request $request){
+        $response = $this->useSaveVideo($request->video_id, $request->identity_token);
+        return response()->json($response);
+    }
+
+    
+    protected function useSaveVideo($video_id, $identity_token, string|int|NULL $user_id = null){
+        $response = array(
+            'status'=> 200,
+            'message'=> 'Video Successfully Saved. Click to preview!',
+            'src'=> array()
+        );
+
+        if($user_id){
+            $find_user = User::findOrFail($user_id);
+            $video = Video::where('user_id', $user_id)->where('video_id', $video_id);
+            
+            if($video->exists()){
+                $video->increment('views'); // increment the existing video views on every checking/refreshing
+                $existing_video = $video->first();
+            
+                $response['message'] = 'This Video is already exists. you can checkout from here!';
+                $response['video'] = $existing_video;
+
+                return $response;
+            }
+
+            $response['status'] = 404;
+            $response['message'] = 'Video Not Found!';
+
+            return $response;
+        }
+
+        if((!$identity_token || empty($identity_token)) && (!$video_id || empty($video_id))){
+            $response['status'] = 403;
+            $response['message'] = 'Your `Identity Token` & `Video ID` is undefined/missing!';  
+            
+            return $response;
+        }
+
+        if(!$identity_token || empty($identity_token)){
+            $response['status'] = 403;
+            $response['message'] = 'Your Identity Token is undefined/missing!';  
+            
+            return $response;
+        }
+
+        if(!$video_id || empty($video_id)){
+            $response['status'] = 403;
+            $response['message'] = 'Your Video ID is undefined/missing!'; 
+            
+            return $response;
+        }
+
+        $find_user = User::where('identity_token', $identity_token)->latest('id')->first();
+        
+        if(!$find_user){
+            $response['status'] = 404;
+            $response['message'] = 'User is not register yet!';
+            
+            return $response;
+        }else{
+            $video = Video::where('user_id', $find_user->id)->where('video_id', $video_id);
+
+            if($video->exists()){
+                $video->increment('views'); // increment the existing video views on every checking/refreshing
+                $existing_video = $video->first();
+            
+                $response['message'] = 'This Video is already exists. you can checkout from here!';
+                $response['video'] = $existing_video;
+
+                return $response;
+            }
+
+            $saved_video_reference = Video::create(['user_id'=> $find_user->id, 'video_id'=> $video_id]);
+            $response['message'] = 'New Video';
+            $response['video'] = $saved_video_reference;
+
+            if($saved_video_reference) return $response;
+        }
+
+        $response['status'] = 500;
+        $response['message'] = 'Internal Errors! Something went wrong!';
+
+        return $response;
+    }<?php 
+namespace App\Helper;
+
+use App\Models\User;
+use Laravolt\Avatar\Avatar;
+
+class HelperClass{
+  public static function generateRandomString($length = 30) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $timestamps = (int) time();
+    $sha256HashString =  hash('sha256', $characters.$timestamps);
+
+    return substr($sha256HashString, mt_rand(0, max(0, strlen($sha256HashString) - $length)), $length);
+  } 
+
+  public static function CreateDummyUsers(){
+    $dummy_users = [];
+    $static_dummy_users = [
+      [
+        'name'=> 'Syed Amir Ali', 
+        'email'=> 'amirralli300400@gmail.com',
+        'picture'=> 'media/profile/image-1.jpg',
+        'identity_token' => static::generateRandomString()
+      ],
+      [
+        'name'=> 'Sabbir Ahmed', 
+        'email'=> 'sabbirahmed09@gmail.com',
+        'picture'=> 'media/profile/image-2.jpg',
+        'identity_token' => static::generateRandomString()
+      ],
+      [
+        'name'=> 'Solaiman Kobir', 
+        'email'=> 'solaimankobir0@gmail.com',
+        'picture'=> 'media/profile/image-3.jpg',
+        'identity_token' => static::generateRandomString()
+      ],
+      [
+        'name'=> 'Mohammad Arif Vai', 
+        'email'=> 'ararif724@gmail.com',
+        'picture'=> 'media/profile/image-4.jpg',
+        'identity_token' => static::generateRandomString()
+      ],
+    ];
+
+    $message = [];
+    
+    foreach($static_dummy_users as $user){
+      if(User::where('email', $user['email'])->exists()){
+        $message[$user['email']] = 'User Exists';
+      }else{
+        $dummy_users[] = User::create($user);
+        $message[$user['email']] = 'User Created Successfully!';
+      }
+    }
+
+    return response()->json([
+      'status'=> 200,
+      'message'=> $message,
+      'users'=> $dummy_users
+    ]);
+  }
+
+  public static function googleDriveVideoIframe(string $file_id, $type = 'iframe'){
+    switch ($type) {
+      case 'iframe':
+        return "<iframe src=https://drive.google.com/file/d/{$file_id}/preview' allow='autoplay'></iframe>";
+
+      case 'drive_url':
+        return "https://drive.google.com/file/d/{$file_id}/preview";
+          
+      default:
+        return "<iframe src=https://drive.google.com/file/d/{$file_id}/preview' allow='autoplay'></iframe>";
+    }
+  }
+
+  public static function makeAvatar(string $file, $avatar){
+    $headers = get_headers($file);
+    $is_file_exists = strpos($headers[0], "200") !== false;
+
+    if($is_file_exists){
+      return $file;
+    }
+
+    return $avatar;
+    // $avatar = new Avatar();
+    // return Avatar::create($name)->toBase64();
+  }
+}
+  <div class="!hidden">
+    <div class="fixed top-0 left-0 w-full bg-black/50 min-h-screen flex items-center justify-center z-20 font-oswald" id="edit-form">
+      <form
+        class="container xl:max-w-3xl w-full object-cover bg-cover h-full p-4 md:p-10 rounded-lg shadow-primary-deep relative"
+        style="background-image: url('{{ asset('/assets/images/bg.jpg') }}')">
+        @csrf
+        
+        <div class="absolute top-2 right-2">
+          <button class="text-lg font-bold bg-primary duration-500 text-slate-100 hover:bg-red-500 py-1 px-3 rounded-full hover:rotate-90" id="remove-edit-form">X</button>
+        </div>
+        
+        <div>
+          <label for="change_video_title" class="text-md font-light text-slate-600 capitalize mb-1 font-jockey">Change Your Video Title: <span class="text-sm pl-1 text-red-400 font-light font-poppins">(max 254 letters)</span></label>
+          <input type="text" class="w-full text-lg font-mono text-secondary font-semibold focus:border-4 focus:border-primary px-4 py-1.5 bg-slate-200 rounded outline-none border-solid border border-slate-600" value="{{ $video['video']['title'] }}">
+        </div>
+
+        <div class="mt-4 w-full flex gap-4 items-center justify-end">
+          <button class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-primary hover:drop-shadow-primary duration-500 uppercase bg-secondary text-slate-100 py-1 px-3">update</button>
+          <p class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-red-500 hover:drop-shadow-primary duration-500 uppercase bg-red-400 text-slate-100 py-1 px-3">delete</p>
+        </div>
+      </form>
+    </div>
