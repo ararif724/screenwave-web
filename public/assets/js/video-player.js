@@ -236,11 +236,11 @@ async function editForm(
     { inputFields = [], url },
     { isDelete = false, deleteUrl = "" }
 ) {
-    const bg = window.asset + "/assets/images/bg.jpg";
+    const bg = window.asset + "assets/images/bg.jpg";
 
     return `
         <div class="fixed top-0 left-0 w-full bg-black/50 min-h-screen flex items-center justify-center z-20" id="edit-form">
-            <form method="post" action="${url}" class="container xl:max-w-3xl w-full object-cover bg-cover h-full p-4 md:p-10 rounded-lg shadow-primary-deep relative" style="background-image: url(${bg})">
+            <form method="post" action="${url}" class="container xl:max-w-3xl w-full object-cover bg-cover h-full p-4 md:p-10 rounded-lg shadow-primary-deep relative" style="background-image: url('${bg}')">
                 <input type="hidden" name="_token" value="${csrfToken()}" autocomplete="off">
 
                 <div class="absolute top-2 right-2 cursor-pointer" id="remove-edit-form">

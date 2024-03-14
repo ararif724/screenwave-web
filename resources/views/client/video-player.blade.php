@@ -393,7 +393,8 @@
 
   <footer></footer>
 
-  {{-- <div class="!hidden">
+  <!-- Unnecessary elements/block Just build tailwindcss for production purpose -->
+  <div class="!hidden">
     <div class="fixed top-0 left-0 w-full bg-black/50 min-h-screen flex items-center justify-center z-20 font-oswald" id="edit-form">
       <form
         class="container xl:max-w-3xl w-full object-cover bg-cover h-full p-4 md:p-10 rounded-lg shadow-primary-deep relative"
@@ -414,7 +415,7 @@
           <p class="text-lg font-semibold tracking-wide rounded-md hover:tracking-wider hover:bg-red-500 hover:drop-shadow-primary duration-500 uppercase bg-red-400 text-slate-100 py-1 px-3">delete</p>
         </div>
       </form>
-    </div> --}}
+    </div>
 </section>
   
 
