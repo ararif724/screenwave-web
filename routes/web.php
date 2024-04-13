@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleOAuthController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
 
 Route::prefix('google-o-auth')->group(function (){
     Route::prefix('/callback')->group(function (){

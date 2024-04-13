@@ -30,6 +30,42 @@ class GoogleOAuthController extends Controller
         );
     }
 
+    function generateAuthToken(Request $request)
+    {
+
+        $request->validate([
+            'refreshToken' => 'required'
+        ]);
+
+        $cl = curl_init();
+        curl_setopt_array($cl, [
+            CURLOPT_URL => 'https://oauth2.googleapis.com/token',
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_POST => TRUE,
+            CURLOPT_POSTFIELDS => [
+                'refresh_token' => $request->get('refreshToken'),
+                'client_id' => getenv('GOOGLE_APP_CLIENT_ID'),
+                'client_secret' => getenv('GOOGLE_APP_CLIENT_SECRET'),
+                'grant_type' => 'refresh_token'
+            ]
+        ]);
+
+        $resp = json_decode(curl_exec($cl));
+
+        if (isset($resp->access_token)) {
+            return response([
+                'success' => true,
+                'data' => $resp
+            ]);
+        }
+
+        return response([
+            'success' => false,
+            'message' => 'Unable to generate authentication token',
+            'data' =>  $resp
+        ], curl_getinfo($cl, CURLINFO_HTTP_CODE));
+    }
+
     function callbackProfileScope(Request $request)
     {
         if ($request->has('code')) {
@@ -67,14 +103,14 @@ class GoogleOAuthController extends Controller
                     isset($resp->name) &&
                     isset($resp->picture)
                 ) {
-                    $identityToken = sha1($resp->email . uniqid(rand(1000, 9999)));
+                    $apiToken = sha1($resp->email . uniqid(rand(1000, 9999)));
 
                     $user = User::firstOrCreate(
                         ['email' => $resp->email],
                         [
                             'name' => $resp->name,
                             'picture' => $resp->picture,
-                            'identity_token' => $identityToken,
+                            'api_token' => $apiToken,
                         ]
                     );
 
@@ -116,10 +152,10 @@ class GoogleOAuthController extends Controller
                 isset($resp->refresh_token)
             ) {
 
-                return view('redirectToDesktopApp', [
+                return view('redirect_to_desktop_app', [
                     'redirectUrl' => session('desktopAppRedirectUrl') . '?data=' . json_encode([
                         'googleApiRefreshToken' => $resp->refresh_token,
-                        'screenwaveWebIdentityToken' => Auth::user()->identity_token
+                        'screenwaveWebApiToken' => Auth::user()->api_token
                     ])
                 ]);
             }
