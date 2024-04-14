@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
+
 
 Route::group(['prefix'=> 'google-o-auth', 'as'=> 'google.oAuth.'], function (){
     Route::group(['prefix'=> 'callback', 'as'=> 'callback.'], function (){
@@ -24,7 +26,6 @@ Route::group(['prefix'=> 'google-o-auth', 'as'=> 'google.oAuth.'], function (){
     });
     Route::get('/{desktopAppRedirectUrl?}', [GoogleOAuthController::class, 'auth'])->where('desktopAppRedirectUrl', '.*');
 });
-
 
 // manage the video
 Route::controller(VideoController::class)->group(function(){

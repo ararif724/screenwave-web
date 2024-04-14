@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Client\VideoController;
+use App\Http\Controllers\GoogleOAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
   
+Route::middleware('auth.api')->group(function () {
+    Route::post('/generate-google-api-auth-token', [GoogleOAuthController::class, 'generateAuthToken']);
+    Route::post('/save-video', [VideoController::class, 'saveVideo']);
+});

@@ -149,4 +149,40 @@ class GoogleOAuthController extends Controller
         ];
         return "https://accounts.google.com/o/oauth2/v2/auth?" . http_build_query($googleOAuthQueryParams);
     }
+
+     function generateAuthToken(Request $request)
+    {
+
+        $request->validate([
+            'refreshToken' => 'required'
+        ]);
+
+        $cl = curl_init();
+        curl_setopt_array($cl, [
+            CURLOPT_URL => 'https://oauth2.googleapis.com/token',
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_POST => TRUE,
+            CURLOPT_POSTFIELDS => [
+                'refresh_token' => $request->get('refreshToken'),
+                'client_id' => getenv('GOOGLE_APP_CLIENT_ID'),
+                'client_secret' => getenv('GOOGLE_APP_CLIENT_SECRET'),
+                'grant_type' => 'refresh_token'
+            ]
+        ]);
+
+        $resp = json_decode(curl_exec($cl));
+
+        if (isset($resp->access_token)) {
+            return response([
+                'success' => true,
+                'data' => $resp
+            ]);
+        }
+
+        return response([
+            'success' => false,
+            'message' => 'Unable to generate authentication token',
+            'data' =>  $resp
+        ], curl_getinfo($cl, CURLINFO_HTTP_CODE));
+    }
 }
