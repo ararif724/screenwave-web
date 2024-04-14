@@ -2,11 +2,11 @@
 @php
   $videoAcrionUrl = function (string $routeName, $as = 'user.video.') use($video) {
     if(Auth::check()){
-      $user_id = Auth::user()->id;
-      $video_id = $video->id;
+      $userId = Auth::user()->id;
+      $videoId = $video->id;
 
       if(Route::has("{$as}{$routeName}")){
-        return route("{$as}{$routeName}", compact('user_id', 'video_id'));
+        return route("{$as}{$routeName}", compact('userId', 'videoId'));
       } else return "#";
 
     } else return "#";
@@ -21,71 +21,16 @@
   style="background-image: url('{{ asset('assets/images/bg-texeture.png') }}')"
 >
   <header>
-    <nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex items-center justify-start">
-      @auth 
-        <div class="m-6 p-4 bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-start group" login-bubble>
-          <div class="flex shadow-primary-deep items-start justify-start w-full md:w-auto bg-transparent">
-            <figure class="border-4 rounded-full border-solid border-primary cursor-pointer">
-              <img
-                src="{{ Auth::user()->picture }}"
-                class="w-16 h-16 rounded-full border border-primary shadow-main"
-                alt="User Profile Image"
-              />
-            </figure>
-            <div class="my-auto opacity-0 group-[.active]:lg:pr-0 overflow-hidden w-0 h-0 group-hover:w-60 group-[.active]:w-60 group-hover:h-auto group-[.active]:h-auto group-hover:ml-4 group-[.active]:ml-4 group-hover:overflow-visible group-[.active]:overflow-visible group-hover:opacity-100 group-[.active]:opacity-100 duration-700 bg-transparent">
-              <h1
-                class="text-2xl font-medium font-primary capitalize tracking-wide leading-3 flex gap-2 text-nowrap cursor-pointer"
-              >
-                <span class="text-secondary">{{ Auth::user()->name }}</span>
-                
-                <span class="fill-primary text-primary -mt-1">  
-                  <svg width="24" height="24" viewBox="0 0 30 30" fill="none"  xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.7969 10.7666C21.3749 12.4999 21.4124 12.0276 19.7723 13.6722C17.9444 15.5055 16.0978 17.3214 14.2549 19.1397C14.0387 19.3543 13.8586 19.6327 13.5278 19.6554C13.2649 19.6385 13.1166 19.4711 12.9644 19.3167C11.7582 18.0971 10.5616 16.8664 9.34428 15.656C8.93497 15.2493 8.869 14.9145 9.32357 14.4871C11.2791 12.6447 10.7398 12.746 12.4155 14.4326C13.5278 15.5523 13.5143 15.5639 14.6228 14.4663C15.8647 13.2376 17.1249 12.0252 18.3403 10.7719C18.8661 10.2282 19.259 10.1751 19.7959 10.7661L19.7969 10.7666Z" fill="rgb(0 158 145)"/>
-                    <path d="M27.7397 10.3299C27.3564 10.0024 27.2457 9.69939 27.2982 9.21213C27.7002 5.5027 24.6493 2.37461 20.8981 2.66648C20.3044 2.71376 19.9534 2.59508 19.5585 2.12808C17.1725 -0.702351 12.8387 -0.71007 10.4513 2.10927C10.0641 2.56662 9.72803 2.71907 9.1213 2.67034C5.32105 2.36158 2.33411 5.45591 2.70778 9.28209C2.75304 9.74522 2.61966 10.0178 2.27392 10.3135C-0.752509 12.9201 -0.759732 17.0965 2.26284 19.6766C2.64614 20.0042 2.75304 20.3091 2.70248 20.7963C2.32496 24.4778 5.22186 27.5586 8.90557 27.3386C9.67554 27.2932 10.119 27.5041 10.6246 28.0762C12.8599 30.6037 17.0098 30.6452 19.2884 28.1742C19.8518 27.5644 20.327 27.0072 21.0898 27.3646C24.798 27.4587 27.6949 24.3422 27.3039 20.8209C27.2515 20.3467 27.3227 20.0268 27.7152 19.6896C30.7527 17.085 30.7623 12.9143 27.7397 10.3299ZM27.1253 15.7013C26.8715 17.1448 25.8141 17.8583 24.5669 18.2949C23.8923 18.5323 23.716 18.7334 24.0599 19.4373C24.6233 20.5894 24.8712 21.8143 24.1181 23.0131C23.2297 24.4247 21.6777 24.9047 20.0246 24.2988C19.1155 23.9649 18.4524 24.2473 18.0354 25.1459C17.3704 26.5763 16.2884 27.2633 14.7836 27.205C13.405 27.1504 12.5633 26.3675 11.9903 25.1855C11.3383 23.84 11.3176 23.8284 9.93894 24.3234C8.53576 24.828 7.31267 24.6548 6.26823 23.5254C5.71013 22.9214 5.3928 22.2417 5.43999 21.5682C5.42892 20.8378 5.57915 20.2999 5.78573 19.7726C6.22922 18.6529 6.23259 18.6432 5.09232 18.1444C3.97854 17.6571 3.11997 16.9547 2.87728 15.6864C2.52576 13.842 3.2418 12.6244 5.36632 11.7584C6.11606 11.4535 6.27352 11.2219 5.90371 10.4636C5.28542 9.20055 5.13181 7.88496 6.1045 6.67309C7.20529 5.30105 8.56369 5.02799 10.4797 5.91084C11.1919 6.23841 11.4847 6.14434 11.7423 5.39512C12.2272 3.98159 13.106 2.9352 14.7273 2.80349C16.3765 2.66986 17.4682 3.39061 18.2213 5.31407C18.5463 6.14579 18.8261 6.2307 19.5999 5.85633C20.8736 5.24267 22.1867 5.14474 23.3756 6.14627C24.6589 7.22451 24.9574 8.56857 24.1268 10.3772C23.7473 11.2036 23.8769 11.4743 24.707 11.8076C26.7473 12.6263 27.4518 13.8459 27.1248 15.7018L27.1253 15.7013Z" fill="rgb(0 158 145)"/>
-                    </svg>
-                </span>
-              </h1>
-              <p
-                class="font-light font-poppins text-sm leading-6 text-slate-500 text-nowrap"
-              >
-                {{ __('@screen-wave') }}
-              </p>
-              <p
-                class="font-light font-poppins text-sm leading-3 text-slate-500 text-nowrap"
-              >
-                A enthusiastic software developer.
-              </p>
-            </div>
-          </div>
-          
-          <div class="hidden group-hover:block group-[.active]:block">
-            <a href="#logout" class="block">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32" class="fill-primary hover:fill-red-500"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
-            </a>
-          </div>
-        </div>
-      @else
-        <div class="m-6 p-4 bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div class="flex shadow-primary-deep items-start justify-start w-full md:w-auto group" login-bubble>
-            <figure class="cursor-pointer">
-              <img
-                src="{{ asset('assets/images/google.png') }}"
-                class="w-16 h-16 rounded-full"
-                alt="User Profile Image"
-              />
-            </figure>
-            <div class="opacity-0 group-[.active]:lg:pr-0 overflow-hidden w-0 h-0 group-hover:w-60 group-[.active]:w-60 group-hover:h-auto group-[.active]:h-auto group-hover:ml-4 group-[.active]:ml-4 group-hover:overflow-visible group-[.active]:overflow-visible group-hover:opacity-100 group-[.active]:opacity-100 duration-700 flex gap-2 my-auto">
-              <a href="{{ route('google.oAuth.') }}" target="_blank" class="text-2xl hover:underline hover:text-primary hover:tracking-wide font-medium font-primary capitalize tracking-wide leading-3 flex gap-2 text-nowrap cursor-pointer">
-                sign in with google
-              </a>
-              <span class="fill-red-500 text-primary -mt-1">  
-                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"> <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
-              </span> 
-            </div>
-          </div>
-        </div>
-      @endauth
-    </nav>
+    <div class="container">
+      <div class="bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between group">
+        <div></div>
+        <div>@include('client.components.profile_bubble')</div>
+      </div>
+    </div>
+
+    {{-- <nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex items-center justify-start">      
+      @include('client.components.profile_bubble')
+    </nav> --}}
   </header>
 
 
@@ -114,32 +59,17 @@
                 class="break-words tracking-wide leading-6 pb-2 sm:pb-0 text-2xl md:text-3xl text-secondary"
               >
                 {{ $video->title }}
+
+                @if(Auth::id() == $video->user->id)
+                  <button video-title="{{ json_encode(['title'=> $video->title, 'label'=> 'Change Your Video Title:', 'url'=> $videoAcrionUrl('edit-video-title', 'frontend.')]) }}" class="bg-primary p-2 ml-3 lg:ml-8 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"><svg xmlns="http://www.w3.org/2000/svg"   width="16" height="16" viewBox="0 0 512 512"><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg></button>
+                @else
+                  <i class="hidden" video-title></i>
+                @endif
               </p>
               <small class="text-md font-poppins text-slate-500 italic"
                 >{{ Carbon\Carbon::parse($video->created_at)->format('l d F Y | h:i:s A') }}</small
               >
             </div>
-            
-            @if(Auth::id() == $video->user->id)
-              <div class="text-end">
-                <button video-title="{{ json_encode(['title'=> $video->title, 'label'=> 'Change Your Video Title:', 'url'=> $videoAcrionUrl('edit-video-title', 'frontend.')]) }}"
-                  class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 192 512"
-                    width="26"
-                    height="26"
-                  >
-                    <path
-                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-              @else
-              <i class="hidden" video-title></i>
-            @endif
           </div>
         </div>
         <div class="w-full md:p-2 p-4 bg-[#DBF1F030] rounded-lg my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -173,7 +103,7 @@
             <div class="pt-2.5 pb-1.5 px-6 bg-white/30 shadow-main rounded-full">
               <div class="flex gap-5">
                 <div class="flex items-center justify-center gap-2.5 group {{ $current_user_dislike ? 'active' : '' }}" id="like-content">
-                  <figure like-button="{{ $videoAcrionUrl("like") }}">
+                  <figure like-button="{{ $videoAcrionUrl("like") }}" class="mb-2.5 mt-1.5">
                     <i class="cursor-pointer duration-500 hover:drop-shadow-primary">
                       <svg
                         width="27"
@@ -186,15 +116,15 @@
                           d="M16.1597 0.748686C17.5003 1.01795 18.3717 2.32801 18.1036 3.67432L17.985 4.26462C17.7117 5.64718 17.2064 6.96242 16.5 8.15856H23.925C25.2914 8.15856 26.4 9.27185 26.4 10.6441C26.4 11.602 25.8586 12.4357 25.0645 12.8499C25.6266 13.3056 25.9875 14.0046 25.9875 14.7865C25.9875 15.9982 25.1213 17.008 23.9817 17.2254C24.2086 17.6034 24.3375 18.0436 24.3375 18.5148C24.3375 19.6177 23.6208 20.555 22.6308 20.876C22.6669 21.0469 22.6875 21.2281 22.6875 21.4145C22.6875 22.7867 21.5789 23.9 20.2125 23.9H15.1852C14.2055 23.9 13.2516 23.61 12.4369 23.0663L10.4517 21.7356C9.075 20.8139 8.25 19.2604 8.25 17.5983V15.615V13.1295V11.8402C8.25 10.3282 8.93578 8.90421 10.1062 7.95661L10.4878 7.65111C11.8542 6.55335 12.7875 5.01027 13.1278 3.29114L13.2464 2.70083C13.5145 1.35452 14.8191 0.479425 16.1597 0.748686ZM1.65 8.98706H4.95C5.86266 8.98706 6.6 9.72753 6.6 10.6441V22.243C6.6 23.1595 5.86266 23.9 4.95 23.9H1.65C0.737344 23.9 0 23.1595 0 22.243V10.6441C0 9.72753 0.737344 8.98706 1.65 8.98706Z"
                           class="fill-secondary group-[.active]:fill-primary"
                         ></path></svg></i>
-                      <small class="text-secondary group-[.active]:text-primary leading-3">Like</small>
+                      {{-- <small class="text-secondary group-[.active]:text-primary leading-3">Like</small> --}}
                   </figure>
                   <p class="text-secondary group-[.active]:text-primary font-semibold font-mono tracking-wide text-xl">{{ $video->likes_count }}</p>
                 </div>
                 <p class="border-r border-solid border-slate-400"></p>
                 <div class="flex items-center justify-center gap-2.5 group {{ $current_user_like ? 'active' : '' }}" id="dislike-content">
-                  <figure dislike-button="{{ $videoAcrionUrl("dislike") }}">
-                    <i class="cursor-pointer duration-500 hover:drop-shadow-primary"
-                      ><svg
+                  <figure dislike-button="{{ $videoAcrionUrl("dislike") }}" class="mt-2.5 mb-1.5">
+                    <i class="cursor-pointer duration-500 hover:drop-shadow-primary">
+                      <svg
                         width="27"
                         height="24"
                         viewBox="0 0 27 24"
@@ -204,20 +134,36 @@
                         <path
                           d="M10.8403 23.8514C9.49969 23.5821 8.62828 22.272 8.89641 20.9257L9.015 20.3354C9.28828 18.9529 9.79359 17.6376 10.5 16.4415L3.075 16.4415C1.70859 16.4415 0.6 15.3282 0.6 13.956C0.6 12.998 1.14141 12.1644 1.93547 11.7501C1.37344 11.2944 1.0125 10.5954 1.0125 9.81349C1.0125 8.60182 1.87875 7.59209 3.01828 7.37461C2.79141 6.9966 2.6625 6.55646 2.6625 6.08526C2.6625 4.98232 3.37922 4.04508 4.36922 3.72404C4.33313 3.55316 4.3125 3.37193 4.3125 3.18551C4.3125 1.81332 5.42109 0.700024 6.7875 0.700024H11.8148C12.7945 0.700024 13.7484 0.989998 14.5631 1.5337L16.5483 2.86447C17.925 3.78617 18.75 5.33961 18.75 7.00178V8.985V11.4705V12.7598C18.75 14.2718 18.0642 15.6958 16.8938 16.6434L16.5122 16.9489C15.1458 18.0467 14.2125 19.5898 13.8722 21.3089L13.7536 21.8992C13.4855 23.2455 12.1809 24.1206 10.8403 23.8514ZM25.35 15.613H22.05C21.1373 15.613 20.4 14.8725 20.4 13.956L20.4 2.35702C20.4 1.44049 21.1373 0.700024 22.05 0.700024H25.35C26.2627 0.700024 27 1.44049 27 2.35702L27 13.956C27 14.8725 26.2627 15.613 25.35 15.613Z"
                           class="fill-secondary group-[.active]:fill-primary"
-                        ></path></svg></i
-                    ><small class="text-secondary group-[.active]:text-primary leading-3">Dilike</small>
+                        ></path></svg>
+                      </i>
+                    {{-- <small class="text-secondary group-[.active]:text-primary leading-3">Dilike</small> --}}
                   </figure>
                   <p class="text-secondary group-[.active]:text-primary  font-semibold font-mono tracking-wide text-xl">{{ $video->dislikes_count }}</p>
                 </div>
               </div>
             </div>
-            <div
-              class="w-16 h-16 flex items-center justify-center bg-white/30 shadow-main rounded-full duration-500 hover:bg-primary group hover:drop-shadow-primary"
-            >
+
+            <a href="https://drive.usercontent.google.com/u/0/uc?id={{ $video->video_id }}&export=download" target="_blank">
+              <i class="text-secondary  w-12 h-12 flex items-center justify-center shadow-main rounded-full hover:bg-primary duration-500 hover:drop-shadow-primary group">
+                <svg
+                  width="30"
+                  height="24"
+                  viewBox="0 0 42 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.45 30C4.23281 30 0 25.6808 0 20.3571C0 16.1518 2.63812 12.5759 6.31312 11.2567C6.30656 11.0759 6.3 10.8951 6.3 10.7143C6.3 4.79464 10.9987 0 16.8 0C20.6916 0 24.0844 2.15625 25.9022 5.37054C26.8997 4.6875 28.1072 4.28571 29.4 4.28571C32.8781 4.28571 35.7 7.16518 35.7 10.7143C35.7 11.5312 35.5491 12.308 35.28 13.0312C39.1125 13.8214 42 17.2835 42 21.4286C42 26.1629 38.2397 30 33.6 30H9.45ZM14.6344 18.817L19.8844 24.1741C20.5012 24.8036 21.4987 24.8036 22.1091 24.1741L27.3591 18.817C27.9759 18.1875 27.9759 17.1696 27.3591 16.5469C26.7422 15.9241 25.7447 15.9174 25.1344 16.5469L22.575 19.1585V10.1786C22.575 9.28795 21.8728 8.57143 21 8.57143C20.1272 8.57143 19.425 9.28795 19.425 10.1786V19.1585L16.8656 16.5469C16.2487 15.9174 15.2512 15.9174 14.6409 16.5469C14.0306 17.1763 14.0241 18.1942 14.6409 18.817H14.6344Z"
+                    class="fill-primary group-hover:fill-white duration-500"
+                  ></path></svg
+              ></i>
+            </a>
+
+            <div class="w-12 h-12 flex items-center justify-center bg-white/30 shadow-main rounded-full duration-500 hover:bg-primary group hover:drop-shadow-primary">
               <i class="m-auto cursor-pointer" id="share-icon"
                 ><svg
-                  width="30"
-                  height="27"
+                  width="27"
+                  height="24"
                   viewBox="0 0 30 27"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -230,47 +176,15 @@
             </div>
           </div>
         </div>
-        <div
-          class="bg-white shadow-main p-2 xl:p-4 w-full flex justify-between items-center rounded-xl"
-        >
-          <div
-            class="flex gap-3 md:gap-6 items-center justify-center text-secondary tracking-wide"
-          >
-            <i
-              class="bg-primary w-12 h-12 flex items-center justify-center shadow-main rounded-full"
-              ><svg
-                width="30"
-                height="24"
-                viewBox="0 0 42 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.45 30C4.23281 30 0 25.6808 0 20.3571C0 16.1518 2.63812 12.5759 6.31312 11.2567C6.30656 11.0759 6.3 10.8951 6.3 10.7143C6.3 4.79464 10.9987 0 16.8 0C20.6916 0 24.0844 2.15625 25.9022 5.37054C26.8997 4.6875 28.1072 4.28571 29.4 4.28571C32.8781 4.28571 35.7 7.16518 35.7 10.7143C35.7 11.5312 35.5491 12.308 35.28 13.0312C39.1125 13.8214 42 17.2835 42 21.4286C42 26.1629 38.2397 30 33.6 30H9.45ZM14.6344 18.817L19.8844 24.1741C20.5012 24.8036 21.4987 24.8036 22.1091 24.1741L27.3591 18.817C27.9759 18.1875 27.9759 17.1696 27.3591 16.5469C26.7422 15.9241 25.7447 15.9174 25.1344 16.5469L22.575 19.1585V10.1786C22.575 9.28795 21.8728 8.57143 21 8.57143C20.1272 8.57143 19.425 9.28795 19.425 10.1786V19.1585L16.8656 16.5469C16.2487 15.9174 15.2512 15.9174 14.6409 16.5469C14.0306 17.1763 14.0241 18.1942 14.6409 18.817H14.6344Z"
-                  class="fill-white"
-                ></path></svg
-            ></i>
-            <h1 class="text-xl leading-5 md:text-2xl font-primary">
-              Download the video from here.
-            </h1>
-          </div>
-          <div>
-            <a
-              href="https://drive.usercontent.google.com/u/0/uc?id={{ $video->video_id }}&export=download" target="_blank"
-              class="block bg-primary md:px-6 md:py-2 px-3 py-1 duration-500 hover:drop-shadow-primary hover:bg-secondary hover:tracking-wide text-sm md:text-xl font-primary uppercase text-white rounded-full text-nowrap"
-              >Download Now</a
-            >
-          </div>
-        </div>
       </article>
 
       <!-- Comments Section -->
       <article class="w-full xl:w-35/100">
-        <div class="bg-[#DBF1F030] p-4 shadow-main" comment-box="{{ $videoAcrionUrl("store-comment") }}">
+        <div class="bg-[#DBF1F030] p-4 shadow-main" comment-box="{{ $videoAcrionUrl("storeComment") }}">
 
           <div class="w-full">
             <!-- Render the Main Comment Text Area -->
-            <textarea name="" cols="30" rows="8" class="w-full resize-none outline-none border border-solid border-green-500 p-3 text-lg font-mono focus:drop-shadow-primary text-slate-800 rounded-md" placeholder="Write here what's on your mind..." id="comment-textarea"></textarea>
+            <textarea name="" cols="30" rows="6" class="w-full resize-none outline-none border border-solid border-green-500 p-3 text-lg font-mono focus:border-2 text-slate-800 rounded-md" placeholder="Write here what's on your mind..." id="comment-textarea"></textarea>
           </div>
 
           <div class="relative">
@@ -348,19 +262,10 @@
                         @auth
                           <div class="text-end">
                             <button
-                              class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
-                              edit-comment="{{ json_encode(['description'=> $comment['description'], 'label'=> 'Change Your Comment Descriptions:', 'editUrl'=> route('user.video.edit-comment', ['id'=> $comment['id'], 'user_id'=> $comment['user_id'], 'video_id'=> $comment['video_id']]), 'deleteUrl'=> route('user.video.delete-comment', ['id'=> $comment['id'], 'user_id'=> $comment['user_id'], 'video_id'=> $comment['video_id']]) ]) }}"
+                              class="bg-primary p-3 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                              edit-comment="{{ json_encode(['description'=> $comment['description'], 'label'=> 'Change Your Comment Descriptions:', 'editUrl'=> route('user.video.editComment', ['id'=> $comment['id'], 'userId'=> $comment['user_id'], 'videoId'=> $comment['video_id']]), 'deleteUrl'=> route('user.video.deleteComment', ['id'=> $comment['id'], 'userId'=> $comment['user_id'], 'videoId'=> $comment['video_id']]) ]) }}"
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 192 512"
-                                width="26"
-                                height="26"
-                              >
-                                <path
-                                  d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                                ></path>
-                              </svg>
+                              <svg xmlns="http://www.w3.org/2000/svg"   width="20" height="20" viewBox="0 0 512 512"><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
                             </button>
                           </div>
                         @endauth
@@ -371,13 +276,6 @@
                         <p class="leading-6 w-full text-start">
                           {!! $comment['description'] !!}
                         </p>
-                        {{-- <div class="absolute bottom-0 right-0 p-1">
-                          <button
-                            class="cursor-pointer font-semibold bg-white pl-6 text-secondary duration-300 hover:underline italic hover:text-primary pr-2 py-0.5 text-sm"
-                          >
-                            show more...
-                          </button>
-                        </div> --}}
                       </div>
                     </div>
                   </div>
@@ -426,3 +324,4 @@
 </div>
 
 @endsection
+

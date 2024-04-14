@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('like_dislike_videos', function (Blueprint $table) {
+        Schema::create('like_dislikes', function (Blueprint $table) {
             $table->id();
-            $table->boolean('like')->default(true);
+            $table->boolean('like')->default(false);
             $table->boolean('dislike')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('video_id')->constrained()->onDelete('cascade');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('like_dislike_videos');
+        Schema::dropIfExists('like_dislikes');
     }
 };

@@ -20,7 +20,7 @@ class Video extends Model
     }
 
     public function likes(){
-        return $this->hasMany(LikeDislikeVideo::class, 'video_id', 'id')->where('like', true);
+        return $this->hasMany(LikeDislike::class, 'video_id', 'id')->where('like', true);
     }
 
     public function totalLikes(){
@@ -28,7 +28,7 @@ class Video extends Model
     }
 
     public function dislikes(){
-        return $this->hasMany(LikeDislikeVideo::class, 'video_id', 'id')->where('dislike', true);
+        return $this->hasMany(LikeDislike::class, 'video_id', 'id')->where('dislike', true);
     }
 
     public function totalDislikes(){

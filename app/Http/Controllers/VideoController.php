@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\LikeDislikeVideo;
-use App\Models\User;
+use App\Models\LikeDislike;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +74,7 @@ class VideoController extends Controller
 
         $get_video->increment('views');
         $video = $get_video->withCount('likes', 'dislikes')->first();
-        $current_user_like_dislike = LikeDislikeVideo::where('user_id', Auth::user()->id ?? 0)->where('video_id', $videoId)->latest('id')->first();
+        $current_user_like_dislike = LikeDislike::where('user_id', Auth::user()->id ?? 0)->where('video_id', $videoId)->latest('id')->first();
         $current_user_like = isset($current_user_like_dislike->like) ? true : false;
         $current_user_dislike = isset($current_user_like_dislike->dislike) ? true : false;
 

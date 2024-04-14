@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\Client\CommentController;
-use App\Http\Controllers\Client\LikeDislikeController;
-use App\Http\Controllers\Client\VideoController;
+// use App\Http\Controllers\Client\CommentController;
+// use App\Http\Controllers\Client\LikeDislikeController;
+// use App\Http\Controllers\Client\VideoController;
+
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GoogleOAuthController;
+use App\Http\Controllers\LikeDislikeController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
+Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
 
 Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
     Route::as('callback.')->prefix('callback')->group(function (){
@@ -29,25 +33,16 @@ Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
 });
 
 // manage the video
-Route::controller(VideoController::class)->group(function(){
-    Route::as('frontend.')->group(function(){
-        Route::get('/', 'home')->name('home');
-        Route::post('/edit-video-title/{user_id}/{video_id}', 'editVideoTitle')->name('edit-video-title');
-    });
-
-    Route::get('/video/{videoId}', 'getVideo')->name('video');
+Route::as('frontend.')->group(function(){
+    Route::get('/', [VideoController::class, 'home'])->name('home');
+    Route::post('/edit-video-title/{userId}/{videoId}', [VideoController::class, 'editVideoTitle'])->name('editVideoTitle');
 });
 
-// manage user's video actions like, dislike, comment etc
 Route::as('user.video.')->prefix('user/video')->middleware('auth')->group(function (){
-    Route::controller(LikeDislikeController::class)->group(function(){
-        Route::get('/like/{user_id}/{video_id}', 'like')->name('like');
-        Route::get('/dislike/{user_id}/{video_id}', 'dislike')->name('dislike');
-    });
+    Route::get('/like/{userId}/{videoId}', [LikeDislikeController::class, 'like'])->name('like');
+    Route::get('/dislike/{userId}/{videoId}', [LikeDislikeController::class, 'dislike'])->name('dislike');
 
-    Route::controller(CommentController::class)->group(function(){
-        Route::post('store-comment/{user_id}/{video_id}', 'storeComment')->name('store-comment');
-        Route::post('/edit-comment/{user_id}/{video_id}/{id}', 'editComment')->name('edit-comment');
-        Route::get('/delete-comment/{user_id}/{video_id}/{id}', 'deleteComment')->name('delete-comment'); 
-    });
+    Route::post('store-comment/{userId}/{videoId}', [CommentController::class, 'storeComment'])->name('storeComment');
+    Route::post('/edit-comment/{userId}/{videoId}/{id}', [CommentController::class, 'editComment'])->name('editComment');
+    Route::get('/delete-comment/{userId}/{videoId}/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment'); 
 });

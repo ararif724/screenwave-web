@@ -1390,3 +1390,70 @@ class GoogleOAuthController extends Controller
         // return an default response with error message!
         return response('Internal Errors! Something went wrong!', 403);  
     }
+
+
+// Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
+
+
+// manage user's video actions like, dislike, comment etc
+// Route::controller(LikeDislikeController::class)->group(function(){
+    // });
+    // Route::controller(CommentController::class)->group(function(){
+        // });
+// Route::controller(VideoController::class)->group(function(){ });
+
+                        {{-- <div class="absolute bottom-0 right-0 p-1">
+                          <button
+                            class="cursor-pointer font-semibold bg-white pl-6 text-secondary duration-300 hover:underline italic hover:text-primary pr-2 py-0.5 text-sm"
+                          >
+                            show more...
+                          </button>
+                        </div> --}}
+        {{-- <div class="bg-white shadow-main p-2 xl:p-4 w-full flex justify-between items-center rounded-xl">
+          <div class="flex gap-3 md:gap-6 items-center justify-center text-secondary tracking-wide">
+            <i class="bg-primary w-12 h-12 flex items-center justify-center shadow-main rounded-full">
+              <svg
+                width="30"
+                height="24"
+                viewBox="0 0 42 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.45 30C4.23281 30 0 25.6808 0 20.3571C0 16.1518 2.63812 12.5759 6.31312 11.2567C6.30656 11.0759 6.3 10.8951 6.3 10.7143C6.3 4.79464 10.9987 0 16.8 0C20.6916 0 24.0844 2.15625 25.9022 5.37054C26.8997 4.6875 28.1072 4.28571 29.4 4.28571C32.8781 4.28571 35.7 7.16518 35.7 10.7143C35.7 11.5312 35.5491 12.308 35.28 13.0312C39.1125 13.8214 42 17.2835 42 21.4286C42 26.1629 38.2397 30 33.6 30H9.45ZM14.6344 18.817L19.8844 24.1741C20.5012 24.8036 21.4987 24.8036 22.1091 24.1741L27.3591 18.817C27.9759 18.1875 27.9759 17.1696 27.3591 16.5469C26.7422 15.9241 25.7447 15.9174 25.1344 16.5469L22.575 19.1585V10.1786C22.575 9.28795 21.8728 8.57143 21 8.57143C20.1272 8.57143 19.425 9.28795 19.425 10.1786V19.1585L16.8656 16.5469C16.2487 15.9174 15.2512 15.9174 14.6409 16.5469C14.0306 17.1763 14.0241 18.1942 14.6409 18.817H14.6344Z"
+                  class="fill-white"
+                ></path></svg
+            ></i>
+            <h1 class="text-xl leading-5 md:text-2xl font-primary">
+              Download the video from here.
+            </h1>
+          </div>
+          <div>
+            <a
+              href="https://drive.usercontent.google.com/u/0/uc?id={{ $video->video_id }}&export=download" target="_blank"
+              class="block bg-primary md:px-6 md:py-2 px-3 py-1 duration-500 hover:drop-shadow-primary hover:bg-secondary hover:tracking-wide text-sm md:text-xl font-primary uppercase text-white rounded-full text-nowrap"
+              >Download Now</a
+            >
+          </div>
+        </div> --}}
+            
+            {{-- @if(Auth::id() == $video->user->id)
+              <div class="text-end">
+                <button video-title="{{ json_encode(['title'=> $video->title, 'label'=> 'Change Your Video Title:', 'url'=> $videoAcrionUrl('edit-video-title', 'frontend.')]) }}"
+                  class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 192 512"
+                    width="26"
+                    height="26"
+                  >
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              @else
+              <i class="hidden" video-title></i>
+            @endif --}}
