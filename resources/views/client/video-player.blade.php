@@ -1,11 +1,9 @@
-@extends('layouts.client-layout')
-@section('content')
 
 @php
   $videoAcrionUrl = function (string $routeName, $as = 'user.video.') use($video) {
     if(Auth::check()){
       $user_id = Auth::user()->id;
-      $video_id = $video['video']['id'];
+      $video_id = $video->id;
 
       if(Route::has("{$as}{$routeName}")){
         return route("{$as}{$routeName}", compact('user_id', 'video_id'));
@@ -14,10 +12,12 @@
     } else return "#";
   }
 @endphp 
+ 
+@extends('layouts.client-layout')
+@section('content')
 
-<!-- // src="https://www.youtube.com/embed/IHHwVoKroFM?si=P7DVqBgvxDsg0kde"-->
 <section
-  class="w-full object-cover bg-cover h-full"
+  class="w-full object-cover bg-cover min-h-full"
   style="background-image: url('{{ asset('/assets/images/bg.jpg') }}')"
 >
   <header>
@@ -98,7 +98,7 @@
               class="w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary"
               title="YouTube video player"
               frameborder="0"
-              src="https://drive.google.com/file/d/{{ $video['video']['video_id'] }}/preview"
+              src="https://drive.google.com/file/d/{{ $video->video_id }}/preview"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen=""
             ></iframe>
@@ -107,22 +107,22 @@
           <div class="font-primary pt-4 flex gap-2">
             <div class="w-full"> 
               <p class="text-sm font-bold text-secondary">
-                <span class="tracking-wide">{{ number_format($video['video']['views']) }}</span>
+                <span class="tracking-wide">{{ number_format($video->views) }}</span>
                 <span class="text-sm font-light text-slate-600 pl-1">views</span>
               </p>
               <p
                 class="break-words tracking-wide leading-6 pb-2 sm:pb-0 text-2xl md:text-3xl text-secondary"
               >
-                {{ $video['video']['title'] }}
+                {{ $video->title }}
               </p>
               <small class="text-md font-poppins text-slate-500 italic"
-                >{{ Carbon\Carbon::parse($video['video']['created_at'])->format('l d F Y | h:i:s A') }}</small
+                >{{ Carbon\Carbon::parse($video->created_at)->format('l d F Y | h:i:s A') }}</small
               >
             </div>
             
-            @if(Auth::id() == $video['user']['id'])
+            @if(Auth::id() == $video->user->id)
               <div class="text-end">
-                <button video-title="{{ json_encode(['title'=> $video['video']['title'], 'label'=> 'Change Your Video Title:', 'url'=> $videoAcrionUrl('edit-video-title', 'frontend.')]) }}"
+                <button video-title="{{ json_encode(['title'=> $video->title, 'label'=> 'Change Your Video Title:', 'url'=> $videoAcrionUrl('edit-video-title', 'frontend.')]) }}"
                   class="bg-primary p-2 text-white fill-white rounded-full shadow-main duration-500 hover:bg-secondary hover:shadow-secondary"
                 >
                   <svg
@@ -146,7 +146,7 @@
           <div class="flex gap-4 items-start justify-start w-full md:w-auto">
             <figure class="border-4 rounded-full border-solid border-primary">
               <img
-                src="{{ $video['user']['picture'] }}"
+                src="{{ $video->user->picture }}"
                 class="w-16 h-16 rounded-full border border-primary shadow-main"
                 alt="User Profile Image"
               />
@@ -155,7 +155,7 @@
               <h1
                 class="text-2xl font-medium font-primary capitalize text-primary tracking-wide leading-3"
               >
-                {{ $video['user']['name'] }}
+                {{ $video->user->name }}
               </h1>
               <p
                 class="font-light font-poppins text-sm leading-6 text-slate-500"
@@ -172,7 +172,7 @@
           <div class="flex gap-6 items-center justify-center">
             <div class="pt-2.5 pb-1.5 px-6 bg-white/30 shadow-main rounded-full">
               <div class="flex gap-5">
-                <div class="flex items-center justify-center gap-2.5 group {{ $video['current_user_like_dislike']['like'] == 1 ? 'active' : '' }}" id="like-content">
+                <div class="flex items-center justify-center gap-2.5 group {{ $current_user_dislike ? 'active' : '' }}" id="like-content">
                   <figure like-button="{{ $videoAcrionUrl("like") }}">
                     <i class="cursor-pointer duration-500 hover:drop-shadow-primary">
                       <svg
@@ -188,10 +188,10 @@
                         ></path></svg></i>
                       <small class="text-secondary group-[.active]:text-primary leading-3">Like</small>
                   </figure>
-                  <p class="text-secondary group-[.active]:text-primary font-semibold font-mono tracking-wide text-xl">{{ $video['video']['likes_count'] }}</p>
+                  <p class="text-secondary group-[.active]:text-primary font-semibold font-mono tracking-wide text-xl">{{ $video->likes_count }}</p>
                 </div>
                 <p class="border-r border-solid border-slate-400"></p>
-                <div class="flex items-center justify-center gap-2.5 group {{ $video['current_user_like_dislike']['dislike'] == 1 ? 'active' : '' }}" id="dislike-content">
+                <div class="flex items-center justify-center gap-2.5 group {{ $current_user_like ? 'active' : '' }}" id="dislike-content">
                   <figure dislike-button="{{ $videoAcrionUrl("dislike") }}">
                     <i class="cursor-pointer duration-500 hover:drop-shadow-primary"
                       ><svg
@@ -207,7 +207,7 @@
                         ></path></svg></i
                     ><small class="text-secondary group-[.active]:text-primary leading-3">Dilike</small>
                   </figure>
-                  <p class="text-secondary group-[.active]:text-primary  font-semibold font-mono tracking-wide text-xl">{{ $video['video']['dislikes_count'] }}</p>
+                  <p class="text-secondary group-[.active]:text-primary  font-semibold font-mono tracking-wide text-xl">{{ $video->dislikes_count }}</p>
                 </div>
               </div>
             </div>
@@ -256,7 +256,7 @@
           </div>
           <div>
             <a
-              href="https://drive.usercontent.google.com/u/0/uc?id={{ $video['video']['video_id'] }}&export=download" target="_blank"
+              href="https://drive.usercontent.google.com/u/0/uc?id={{ $video->video_id }}&export=download" target="_blank"
               class="block bg-primary md:px-6 md:py-2 px-3 py-1 duration-500 hover:drop-shadow-primary hover:bg-secondary hover:tracking-wide text-sm md:text-xl font-primary uppercase text-white rounded-full text-nowrap"
               >Download Now</a
             >
@@ -316,7 +316,7 @@
           >
             <div class="w-full" video-comments>
 
-              @foreach ($video['video']['comments'] as $comment)
+              @foreach ($video->comments as $comment)
                 <div class="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3">
                   <div class="flex gap-4">
                     <figure>
@@ -407,7 +407,7 @@
         
         <div>
           <label for="change_video_title" class="text-md font-light text-slate-600 capitalize mb-1 font-jockey">Change Your Video Title: <span class="text-sm pl-1 text-red-400 font-light font-poppins">(max 254 letters)</span></label>
-          <input type="text" class="w-full text-lg font-mono text-secondary font-semibold focus:border-4 focus:border-primary px-4 py-1.5 bg-slate-200 rounded outline-none border-solid border border-slate-600" value="{{ $video['video']['title'] }}">
+          <input type="text" class="w-full text-lg font-mono text-secondary font-semibold focus:border-4 focus:border-primary px-4 py-1.5 bg-slate-200 rounded outline-none border-solid border border-slate-600" value="{{ $video->title }}">
         </div>
 
         <div class="mt-4 w-full flex gap-4 items-center justify-end">

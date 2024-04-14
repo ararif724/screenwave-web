@@ -16,28 +16,30 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
 
+// Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
 
-Route::group(['prefix'=> 'google-o-auth', 'as'=> 'google.oAuth.'], function (){
-    Route::group(['prefix'=> 'callback', 'as'=> 'callback.'], function (){
+Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
+    Route::as('callback.')->prefix('callback')->group(function (){
         Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('profileScope');
         Route::get('/drive-scope', [GoogleOAuthController::class, 'callbackDriveScope'])->name('driveScope');
     });
+
     Route::get('/{desktopAppRedirectUrl?}', [GoogleOAuthController::class, 'auth'])->where('desktopAppRedirectUrl', '.*');
 });
 
 // manage the video
 Route::controller(VideoController::class)->group(function(){
-    Route::group(['as'=> 'frontend.'], function(){
+    Route::as('frontend.')->group(function(){
         Route::get('/', 'home')->name('home');
-        Route::get('/video-player', 'videoPlayer')->name('videoPlayer');
         Route::post('/edit-video-title/{user_id}/{video_id}', 'editVideoTitle')->name('edit-video-title');
     });
+
+    Route::get('/video/{videoId}', 'getVideo')->name('video');
 });
 
 // manage user's video actions like, dislike, comment etc
-Route::group(['as'=> 'user.video.', 'prefix'=> 'user/video'], function (){
+Route::as('user.video.')->prefix('user/video')->middleware('auth')->group(function (){
     Route::controller(LikeDislikeController::class)->group(function(){
         Route::get('/like/{user_id}/{video_id}', 'like')->name('like');
         Route::get('/dislike/{user_id}/{video_id}', 'dislike')->name('dislike');
