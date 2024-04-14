@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->default('Untitled Video.');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('video_id');
             $table->unsignedBigInteger('views')->default(0);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('title')->default('Untitled');
             $table->timestamps();
         });
     }

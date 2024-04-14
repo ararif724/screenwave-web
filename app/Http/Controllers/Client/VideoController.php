@@ -145,6 +145,12 @@ class VideoController extends Controller
 
     function getVideo($videoId)
     {
-        return '<iframe src="https://drive.google.com/file/d/' . $videoId . '/preview" width="640" height="480" allow="autoplay"></iframe>';
+
+        return implode("<br/>\n", [
+            '<iframe src="https://drive.google.com/file/d/' . $videoId . '/preview" width="640" height="480" allow="autoplay"></iframe>',
+            // "<a href='https://drive.google.com/file/d/{$videoId}' target='_blank'>https://drive.google.com/file/d/{$videoId}</a>",
+            // "<iframe src='https://drive.google.com/file/d/1syBZQN3Z_v7CRRqyFClTIIlgm8JrhWR_/view?usp=sharing&t=12' width='600' height='400'></iframe>"
+        ]);
     }
 }
+// https://drive.google.com/file/d/1syBZQN3Z_v7CRRqyFClTIIlgm8JrhWR_/view?usp=sharing&t=12 https://drive.google.com/file/d/1syBZQN3Z_v7CRRqyFClTIIlgm8JrhWR_/view?usp=sharing
