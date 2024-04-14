@@ -15,6 +15,10 @@ class Video extends Model
         'user_id',
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function likes(){
         return $this->hasMany(LikeDislikeVideo::class, 'video_id', 'id')->where('like', true);
     }
