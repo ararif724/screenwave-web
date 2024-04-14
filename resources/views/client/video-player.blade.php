@@ -18,7 +18,7 @@
 
 <section
   class="w-full object-cover bg-cover min-h-full"
-  style="background-image: url('{{ asset('/assets/images/bg.jpg') }}')"
+  style="background-image: url('{{ asset('assets/images/bg-texeture.png') }}')"
 >
   <header>
     <nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex items-center justify-start">
