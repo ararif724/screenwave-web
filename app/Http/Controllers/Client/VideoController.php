@@ -14,7 +14,7 @@ class VideoController extends Controller
     public function home(){
         return response("Welcome to our Screenwave.", 200);
     } 
-    
+
     // video title edit controller
     public function editVideoTitle(int|string $user_id, int|string $video_id, Request $request){
         if(!Auth::check()){
@@ -55,7 +55,6 @@ class VideoController extends Controller
 
     function getVideo($videoId)
     {
-
         // initiate a returning response
         $video = array(
             'status'=> 200,
