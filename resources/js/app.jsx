@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import shareIcons from "./assets/shareIcons";
-import { FacebookShareButton, EmailShareButton } from "react-share";
 
 var share_box = document.getElementById("share-box");
 
@@ -94,13 +93,12 @@ function App() {
                 >
                     {shareIcons.map((shareIcon, index) => (
                         <a
+                            // href={shareIcon.share(shareUrl)}
                             key={shareIcon.id}
                             className="text-center bg-primary/15 p-2 flex items-center justify-center flex-col rounded-md duration-500 hover:bg-primary text-secondary hover:text-slate-100 cursor-pointer hover:drop-shadow-primary"
                             onClick={function () {
                                 window.open(
-                                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                                        window.location.href
-                                    )}`,
+                                    shareIcon.share(shareUrl),
                                     "_blank"
                                 );
                             }}

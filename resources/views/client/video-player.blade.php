@@ -12,7 +12,6 @@
     } else return "#";
   };
 
-  // $videoIframe = "<iframe class='w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary' title='YouTube video player' frameborder='0' src='https://drive.google.com/file/d/{$video->video_id}/preview' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen='' ></iframe>";
 @endphp 
  
 @extends('layouts.client-layout')
@@ -20,17 +19,14 @@
 
 @include('client.components.share_box', ['iframeUrl'=> "https://drive.google.com/file/d/{$video->video_id}/preview"])
 
-{{-- <script> const videoIframe = "{!! $videoIframe !!}"; </script> --}}
-<i class="w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary !hidden"></i>
-
 <section
   class="w-full object-cover bg-cover min-h-full"
   style="background-image: url('{{ asset('assets/images/bg-texeture.png') }}')"
 >
   <header>
     <div class="container">
-      <div class="bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between group">
-        <div>
+      <div class="bg-slate-100 rounded-full mt-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between group">
+        <div class="flex items-center justify-center pt-3.5 md:pt-0">
           <figure class="px-4 flex gap-4 items-center justify-center">
             <img src="{{ asset('assets/images/logo-1.png') }}" alt="Logo" class="w-12 h-12">
             <p class="font-['Orbitron',_sans-serif] text-3xl text-primary font-extrabold tracking-wide">ScreenWave</p>
@@ -38,11 +34,7 @@
         </div>
         <div>@include('client.components.profile_bubble')</div>
       </div>
-    </div>
-
-    {{-- <nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex items-center justify-start">      
-      @include('client.components.profile_bubble')
-    </nav> --}}
+    </div> 
   </header>
 
 
@@ -87,19 +79,10 @@
               />
             </figure>
             <div class="my-auto lg:pr-2">
-              <h1
-                class="text-2xl font-medium font-primary capitalize text-primary tracking-wide leading-3"
-              >
+              <h1 class="text-2xl font-medium font-primary capitalize text-primary tracking-wide leading-6">
                 {{ $video->user->name }}
-              </h1>
-              <p
-                class="font-light font-poppins text-sm leading-6 text-slate-500"
-              >
-                {{ __('@screen-wave') }}
-              </p>
-              <p
-                class="font-light font-poppins text-sm leading-[0.4] text-slate-500"
-              >
+              </h1> 
+              <p class="font-light font-poppins text-sm leading-5 text-slate-500">
                 A enthusiastic software developer.
               </p>
             </div>
@@ -120,8 +103,7 @@
                         <path
                           d="M16.1597 0.748686C17.5003 1.01795 18.3717 2.32801 18.1036 3.67432L17.985 4.26462C17.7117 5.64718 17.2064 6.96242 16.5 8.15856H23.925C25.2914 8.15856 26.4 9.27185 26.4 10.6441C26.4 11.602 25.8586 12.4357 25.0645 12.8499C25.6266 13.3056 25.9875 14.0046 25.9875 14.7865C25.9875 15.9982 25.1213 17.008 23.9817 17.2254C24.2086 17.6034 24.3375 18.0436 24.3375 18.5148C24.3375 19.6177 23.6208 20.555 22.6308 20.876C22.6669 21.0469 22.6875 21.2281 22.6875 21.4145C22.6875 22.7867 21.5789 23.9 20.2125 23.9H15.1852C14.2055 23.9 13.2516 23.61 12.4369 23.0663L10.4517 21.7356C9.075 20.8139 8.25 19.2604 8.25 17.5983V15.615V13.1295V11.8402C8.25 10.3282 8.93578 8.90421 10.1062 7.95661L10.4878 7.65111C11.8542 6.55335 12.7875 5.01027 13.1278 3.29114L13.2464 2.70083C13.5145 1.35452 14.8191 0.479425 16.1597 0.748686ZM1.65 8.98706H4.95C5.86266 8.98706 6.6 9.72753 6.6 10.6441V22.243C6.6 23.1595 5.86266 23.9 4.95 23.9H1.65C0.737344 23.9 0 23.1595 0 22.243V10.6441C0 9.72753 0.737344 8.98706 1.65 8.98706Z"
                           class="fill-secondary group-[.active]:fill-primary"
-                        ></path></svg></i>
-                      {{-- <small class="text-secondary group-[.active]:text-primary leading-3">Like</small> --}}
+                        ></path></svg></i> 
                   </figure>
                   <p class="text-secondary group-[.active]:text-primary font-semibold font-mono tracking-wide text-xl">{{ $video->likes_count }}</p>
                 </div>
@@ -140,8 +122,7 @@
                           d="M10.8403 23.8514C9.49969 23.5821 8.62828 22.272 8.89641 20.9257L9.015 20.3354C9.28828 18.9529 9.79359 17.6376 10.5 16.4415L3.075 16.4415C1.70859 16.4415 0.6 15.3282 0.6 13.956C0.6 12.998 1.14141 12.1644 1.93547 11.7501C1.37344 11.2944 1.0125 10.5954 1.0125 9.81349C1.0125 8.60182 1.87875 7.59209 3.01828 7.37461C2.79141 6.9966 2.6625 6.55646 2.6625 6.08526C2.6625 4.98232 3.37922 4.04508 4.36922 3.72404C4.33313 3.55316 4.3125 3.37193 4.3125 3.18551C4.3125 1.81332 5.42109 0.700024 6.7875 0.700024H11.8148C12.7945 0.700024 13.7484 0.989998 14.5631 1.5337L16.5483 2.86447C17.925 3.78617 18.75 5.33961 18.75 7.00178V8.985V11.4705V12.7598C18.75 14.2718 18.0642 15.6958 16.8938 16.6434L16.5122 16.9489C15.1458 18.0467 14.2125 19.5898 13.8722 21.3089L13.7536 21.8992C13.4855 23.2455 12.1809 24.1206 10.8403 23.8514ZM25.35 15.613H22.05C21.1373 15.613 20.4 14.8725 20.4 13.956L20.4 2.35702C20.4 1.44049 21.1373 0.700024 22.05 0.700024H25.35C26.2627 0.700024 27 1.44049 27 2.35702L27 13.956C27 14.8725 26.2627 15.613 25.35 15.613Z"
                           class="fill-secondary group-[.active]:fill-primary"
                         ></path></svg>
-                      </i>
-                    {{-- <small class="text-secondary group-[.active]:text-primary leading-3">Dilike</small> --}}
+                      </i> 
                   </figure>
                   <p class="text-secondary group-[.active]:text-primary  font-semibold font-mono tracking-wide text-xl">{{ $video->dislikes_count }}</p>
                 </div>
@@ -256,8 +237,7 @@
                               class="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4"
                               >{{ Carbon\Carbon::parse($comment['updated_at'])->diffForHumans() }}</span
                             >
-                          </h1>
-                          {{-- <p class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500">{{ __('@screen-wave') }}</p> --}}
+                          </h1> 
                         </div>
                         
                         @auth
@@ -270,10 +250,8 @@
                             </button>
                           </div>
                         @endauth
-                      </div>
-                      <div
-                        class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14"
-                      >
+                      </div> 
+                      <div class="font-normal font-poppins text-md leading-6 text-slate-700 pt-2 px-2 relative -ml-14 border-t border-slate-300 mt-4">
                         <p class="leading-6 w-full text-start">
                           {!! $comment['description'] !!}
                         </p>

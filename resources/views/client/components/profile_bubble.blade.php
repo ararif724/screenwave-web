@@ -1,5 +1,5 @@
 @auth 
-    <div class="flex flex-col md:flex-row gap-4 items-center justify-start group py-2 px-4" login-bubble>
+    <div class="hidden md:flex flex-col md:flex-row gap-4 items-center justify-start group py-2 px-4">
         <div class="flex items-start justify-start w-full md:w-auto bg-transparent">
             <figure class="border-4 rounded-full border-solid border-primary cursor-pointer">
                 <img
@@ -31,8 +31,8 @@
         </div>
     </div>
 @else
-    <div class="py-2 px-4 flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div class="flex flex-row-reverse gap-4 items-start justify-start w-full md:w-auto group" login-bubble>
+    <div class="hidden md:flex py-2 px-4 flex-col md:flex-row gap-4 items-center justify-between">
+        <div class="flex flex-row-reverse gap-4 items-start justify-start w-full md:w-auto group">
             <figure class="cursor-pointer">
                 <img
                 src="{{ asset('assets/images/google.png') }}"
@@ -83,9 +83,9 @@
 
 
 
-{{-- <nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex items-center justify-start">
+<nav class="fixed left-0 bottom-0 lg:top-0 lg:bottom-auto flex sm:hidden items-center justify-start">
     @auth 
-        <div class="m-6 p-4 bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-start group" login-bubble>
+        <div class="m-6 p-4 bg-slate-100 rounded-full my-6 shadow-main flex gap-4 items-center justify-start group" login-bubble>
             <div class="flex shadow-primary-deep items-start justify-start w-full md:w-auto bg-transparent">
                 <figure class="border-4 rounded-full border-solid border-primary cursor-pointer">
                     <img
@@ -137,4 +137,4 @@
         </div>
       </div>
     @endauth
-</nav> --}}
+</nav>
