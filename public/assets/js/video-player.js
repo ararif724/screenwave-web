@@ -357,11 +357,13 @@ editComments.forEach(function (editComment) {
 });
 
 document.getElementById("share-icon").onclick = function () {
-    const url = window.location.href;
+    /* const url = window.location.href;
     navigator.clipboard.writeText(url);
 
     Toast.fire({
         icon: "success",
         text: "Shared Link Copied In Your Clipboard!",
-    });
+    }); */
+
+    document.getElementById("share-box").classList.replace("hidden", "flex");
 };

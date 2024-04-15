@@ -10,11 +10,18 @@
       } else return "#";
 
     } else return "#";
-  }
+  };
+
+  // $videoIframe = "<iframe class='w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary' title='YouTube video player' frameborder='0' src='https://drive.google.com/file/d/{$video->video_id}/preview' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen='' ></iframe>";
 @endphp 
  
 @extends('layouts.client-layout')
 @section('content')
+
+@include('client.components.share_box', ['iframeUrl'=> "https://drive.google.com/file/d/{$video->video_id}/preview"])
+
+{{-- <script> const videoIframe = "{!! $videoIframe !!}"; </script> --}}
+<i class="w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary !hidden"></i>
 
 <section
   class="w-full object-cover bg-cover min-h-full"
@@ -23,7 +30,12 @@
   <header>
     <div class="container">
       <div class="bg-slate-100 rounded-full my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between group">
-        <div></div>
+        <div>
+          <figure class="px-4 flex gap-4 items-center justify-center">
+            <img src="{{ asset('assets/images/logo-1.png') }}" alt="Logo" class="w-12 h-12">
+            <p class="font-['Orbitron',_sans-serif] text-3xl text-primary font-extrabold tracking-wide">ScreenWave</p>
+          </figure>
+        </div>
         <div>@include('client.components.profile_bubble')</div>
       </div>
     </div>
@@ -39,14 +51,7 @@
       <article class="w-full xl:w-65/100">
         <div class="w-full">
           <div class="w-full p-4 shadow-main bg-transparent">
-            <iframe
-              class="w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary"
-              title="YouTube video player"
-              frameborder="0"
-              src="https://drive.google.com/file/d/{{ $video->video_id }}/preview"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen=""
-            ></iframe>
+            <iframe class='w-full min-h-72 sm:min-h-96 md:min-h-[60vh] rounded-xl border border-solid border-primary' title='YouTube video player' frameborder='0' src='https://drive.google.com/file/d/{{ $video->video_id }}/preview' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen='' ></iframe>
           </div>
 
           <div class="font-primary pt-4 flex gap-2">
@@ -159,8 +164,8 @@
               ></i>
             </a>
 
-            <div class="w-12 h-12 flex items-center justify-center bg-white/30 shadow-main rounded-full duration-500 hover:bg-primary group hover:drop-shadow-primary">
-              <i class="m-auto cursor-pointer" id="share-icon"
+            <div class="w-12 h-12 flex items-center justify-center bg-white/30 shadow-main rounded-full duration-500 hover:bg-primary group hover:drop-shadow-primary" id="share-icon">
+              <i class="m-auto cursor-pointer"
                 ><svg
                   width="27"
                   height="24"
@@ -252,11 +257,7 @@
                               >{{ Carbon\Carbon::parse($comment['updated_at'])->diffForHumans() }}</span
                             >
                           </h1>
-                          <p
-                            class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500"
-                          >
-                            {{ __('@screen-wave') }}
-                          </p>
+                          {{-- <p class="font-light font-poppins text-sm sm:leading-[.3] text-slate-500">{{ __('@screen-wave') }}</p> --}}
                         </div>
                         
                         @auth
