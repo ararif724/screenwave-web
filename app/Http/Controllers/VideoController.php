@@ -31,6 +31,28 @@ class VideoController extends Controller
         return redirect()->back()->with('error', 'A serious error occurred!');
     }
 
+    public function updateVideoTitle($videoId, Request $request){ 
+        $request->validate(['title'=> 'required|max:254']); 
+
+        $video = Video::find($videoId);
+        $video->title = $request->input('title');
+        $video->save();
+
+        if($video){
+            return response()->json([
+                'video'=> $video,
+                'status'=> 'success',
+                'message'=> 'Your video title updated successfully!'
+            ]);
+        };
+
+        return response()->json([
+            'video'=> null,
+            'status'=> 'error',
+            'message'=> 'Title Not Updated. Please try again later!'
+        ]);
+    }
+
     function saveVideo(Request $request)
     {
         $request->validate([
@@ -60,7 +82,7 @@ class VideoController extends Controller
             'src'=> array(
                 'url'=> route('frontend.home')
             ),
-            'current_user_like_dislike'=> array(
+            'currentUserLikeDislike'=> array(
                 'like'=> 0,
                 'dislike'=> 0,
             ),
@@ -74,11 +96,11 @@ class VideoController extends Controller
 
         $get_video->increment('views');
         $video = $get_video->withCount('likes', 'dislikes')->first();
-        $current_user_like_dislike = LikeDislike::where('user_id', Auth::user()->id ?? 0)->where('video_id', $videoId)->latest('id')->first();
-        $current_user_like = isset($current_user_like_dislike->like) ? true : false;
-        $current_user_dislike = isset($current_user_like_dislike->dislike) ? true : false;
+        $currentUserLikeDislike = LikeDislike::where('user_id', Auth::user()->id ?? 0)->where('video_id', $videoId)->latest('id')->first();
+        $currentUserLike = isset($currentUserLikeDislike->like) ? true : false;
+        $currentUserDislike = isset($currentUserLikeDislike->dislike) ? true : false;
 
-        return view('client.video-player', compact('video', 'current_user_like', 'current_user_dislike'));
+        return view('client.video-player', compact('video', 'currentUserLike', 'currentUserDislike'));
         
     }
 }

@@ -1,5 +1,4 @@
 
-{{-- <script src="{{ asset('assets/js/jquery-3.7.1.slim.min.js') }}"></script> --}}
 <script src="{{ asset('assets/js/sweetalert2.js') }}"></script>
 
 <script>
@@ -15,8 +14,8 @@
         }
     });
 
-    window.asset = "{{ asset('/') }}" 
-    const csrfToken = () => document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    window.asset = (src) => "{{ asset('/') }}" + src; 
+    window.route = (endpoint) => "{{ route('frontend.home') }}" + endpoint; 
 
     const isAuth = @json(Auth::check()); 
     const userName = '{{ Auth::check() ? Auth::user()->name : '' }}'

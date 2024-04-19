@@ -5,6 +5,7 @@
 // use App\Http\Controllers\Client\VideoController;
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GoogleOAuthController;
 use App\Http\Controllers\LikeDislikeController;
 use App\Http\Controllers\VideoController;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
 
 Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
@@ -34,7 +36,8 @@ Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
 
 // manage the video
 Route::as('frontend.')->group(function(){
-    Route::get('/', [VideoController::class, 'home'])->name('home');
+    Route::get('/', [FrontendController::class, 'home'])->name('home');
+    Route::get('/video-player/{videoId}', [FrontendController::class, 'videoPlayer'])->name('videoPlayer');
     Route::post('/edit-video-title/{userId}/{videoId}', [VideoController::class, 'editVideoTitle'])->name('editVideoTitle');
 });
 
@@ -45,6 +48,9 @@ Route::as('user.video.')->prefix('user/video')->middleware('auth')->group(functi
     Route::post('store-comment/{userId}/{videoId}', [CommentController::class, 'storeComment'])->name('storeComment');
     Route::post('/edit-comment/{userId}/{videoId}/{id}', [CommentController::class, 'editComment'])->name('editComment');
     Route::get('/delete-comment/{userId}/{videoId}/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment'); 
+
+    // new
+    Route::post('/update-video-title/{videoId}', [VideoController::class, 'updateVideoTitle'])->name('updateVideoTitle');
 });
 
  

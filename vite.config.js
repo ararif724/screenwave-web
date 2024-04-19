@@ -21,6 +21,7 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/js/app.js",
                 "resources/js/app.jsx",
+                "resources/js/index.jsx",
             ],
             refresh: true,
         }),

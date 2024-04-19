@@ -91,7 +91,7 @@
           <div class="flex gap-6 items-center justify-center">
             <div class="pt-2.5 pb-1.5 px-6 bg-white/30 shadow-main rounded-full">
               <div class="flex gap-5">
-                <div class="flex items-center justify-center gap-2.5 group {{ $current_user_dislike ? 'active' : '' }}" id="like-content">
+                <div class="flex items-center justify-center gap-2.5 group {{ $currentUserDislike ? 'active' : '' }}" id="like-content">
                   <figure like-button="{{ $videoAcrionUrl("like") }}" class="mb-2.5 mt-1.5">
                     <i class="cursor-pointer duration-500 hover:drop-shadow-primary">
                       <svg
@@ -109,7 +109,7 @@
                   <p class="text-secondary group-[.active]:text-primary font-semibold font-mono tracking-wide text-xl">{{ $video->likes_count }}</p>
                 </div>
                 <p class="border-r border-solid border-slate-400"></p>
-                <div class="flex items-center justify-center gap-2.5 group {{ $current_user_like ? 'active' : '' }}" id="dislike-content">
+                <div class="flex items-center justify-center gap-2.5 group {{ $currentUserLike ? 'active' : '' }}" id="dislike-content">
                   <figure dislike-button="{{ $videoAcrionUrl("dislike") }}" class="mt-2.5 mb-1.5">
                     <i class="cursor-pointer duration-500 hover:drop-shadow-primary">
                       <svg

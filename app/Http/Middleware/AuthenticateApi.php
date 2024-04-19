@@ -28,6 +28,7 @@ class AuthenticateApi
         }
 
         return response([
+            'status'=> 'error',
             'success' => false,
             'message' => 'Unauthorized'
         ], 401);
