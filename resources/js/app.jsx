@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import shareIcons from "./assets/shareIcons";
+import SfPage from "./components/SfPage";
 
 var share_box = document.getElementById("share-box");
 
@@ -204,17 +205,4 @@ function App() {
             </div>
         </div>
     );
-}
-
-{
-    /* <a className="text-center bg-primary/15 p-2 flex items-center justify-center flex-col rounded-md duration-500 hover:bg-primary text-secondary hover:text-slate-100 cursor-pointer hover:drop-shadow-primary">
-<FacebookShareButton
-    title="Hello"
-    url={window.location.href}
->
-    Hello
-</FacebookShareButton>
-</a>
-https://www.facebook.com/share_channel/?link=https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3DzKzYdpbVtCI%26si%3Du_zaAl2M3jv4yRKX&app_id=87741124305&source_surface=external_reshare&display=popup&hashtag
-*/
 }

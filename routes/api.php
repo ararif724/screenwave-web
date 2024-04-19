@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Client\VideoController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\GoogleOAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

@@ -46,3 +46,5 @@ Route::as('user.video.')->prefix('user/video')->middleware('auth')->group(functi
     Route::post('/edit-comment/{userId}/{videoId}/{id}', [CommentController::class, 'editComment'])->name('editComment');
     Route::get('/delete-comment/{userId}/{videoId}/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment'); 
 });
+
+ 
