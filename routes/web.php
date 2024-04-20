@@ -37,7 +37,6 @@ Route::as('frontend.')->group(function(){
     Route::get('/', [FrontendController::class, 'home'])->name('home');
     Route::post('/logout', [FrontendController::class, 'logout'])->name('logout');
     Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
-    // Route::get('/video-player/{videoId}', [FrontendController::class, 'videoPlayer'])->name('videoPlayer'); // video player route from frontend
     Route::post('/edit-video-title/{userId}/{videoId}', [VideoController::class, 'editVideoTitle'])->name('editVideoTitle');
 });
 
@@ -52,4 +51,4 @@ Route::as('user.video.')->prefix('user/video')->middleware('auth')->group(functi
     Route::post('/update-video-title/{videoId}', [VideoController::class, 'updateVideoTitle'])->name('updateVideoTitle');
 });
 
- 
+// Route::get('/video-player/{videoId}', [FrontendController::class, 'videoPlayer'])->name('videoPlayer'); // video player route from frontend
