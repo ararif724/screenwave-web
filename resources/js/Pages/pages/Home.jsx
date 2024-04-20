@@ -1,13 +1,12 @@
-import App from "./App";
-import Components from "../components";
+import React from "react";
+import { Provider } from "react-redux";
+import store from "../../redux/store";
+import HomeApp from "../components/home";
 
-export default function Home({ isAuth, user }) {
+export default function ({ isAuth, user }) {
     return (
-        <App isAuth={isAuth} user={user}>
-            <Components.HeaderContents />
-            <Components.Installation />
-            <Components.MarketingAudience />
-        </App>
+        <Provider store={store}>
+            <HomeApp isAuth={isAuth} user={user} />
+        </Provider>
     );
 }
-// isAuth, user

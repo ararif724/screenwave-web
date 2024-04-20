@@ -3,16 +3,16 @@ import Header from "./header";
 import Footer from "./footer";
 import Installation from "./installation";
 import MarketingAudience from "./marketing-audience";
-import VideoPlayer from "./video-player";
 import NavBar from "./header/NavBar";
 import HeaderContents from "./header/HeaderContents";
+import VideoPlayerApp from "./video-player";
 
 export default {
     Footer,
     Header,
     Installation,
     MarketingAudience,
-    VideoPlayer,
+    VideoPlayerApp,
     NavBar,
     HeaderContents,
 };

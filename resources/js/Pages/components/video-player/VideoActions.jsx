@@ -9,10 +9,83 @@ export default function VideoActions({
     videoId,
     likesCount,
     dislikesCount,
+    id,
 }) {
-    const { id, name, email, picture, created_at, updated_at } = user || {};
-
+    const { name, picture } = user || {};
     const [isShareActive, setShareActive] = useState(false);
+    const [btnStatus, setBtnStatus] = useState(false);
+    const [likeDislike, setLikeDislike] = useState({
+        like,
+        dislike,
+        likesCount,
+        dislikesCount,
+    });
+
+    async function likeHandler() {
+        likeDislikeRequest("like");
+    }
+    function dislikeHandler() {
+        likeDislikeRequest("dislike");
+    }
+
+    async function likeDislikeRequest(type) {
+        setBtnStatus(true);
+
+        try {
+            const url = window.route(`/user/video/${type}/${id}`);
+
+            const response = await fetch(url);
+            const result = await response.json();
+
+            console.log(result);
+
+            if (result.status === "success") {
+                if (type === "like") {
+                    setLikeDislike((prev) => ({
+                        ...prev,
+                        like: result?.data?.like,
+                        dislike: result?.data?.dislike,
+                        likesCount: result?.data?.like
+                            ? prev.likesCount + 1
+                            : prev.likesCount - 1,
+                        dislikesCount: prev.dislike
+                            ? prev.dislikesCount - 1
+                            : prev.dislikesCount,
+                    }));
+                }
+                if (type === "dislike") {
+                    setLikeDislike((prev) => ({
+                        ...prev,
+                        like: result?.data?.like,
+                        dislike: result?.data?.dislike,
+                        dislikesCount: result?.data?.dislike
+                            ? prev.dislikesCount + 1
+                            : prev.dislikesCount - 1,
+                        likesCount: prev.like
+                            ? prev.likesCount - 1
+                            : prev.likesCount,
+                    }));
+                }
+
+                return fireToast(result.message, "success");
+            }
+
+            return fireToast(result.message);
+        } catch (error) {
+            return fireToast(
+                `There is an error occurred "${error?.message}". Please try again later!`
+            );
+        } finally {
+            setBtnStatus(false);
+        }
+    }
+
+    function fireToast(text, icon = "error") {
+        Toast.fire({
+            icon,
+            text,
+        });
+    }
 
     return (
         <div className="w-full md:p-2 p-4 bg-[#DBF1F030] rounded-lg my-6 shadow-main flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -38,34 +111,39 @@ export default function VideoActions({
                     <div className="flex gap-5">
                         <div
                             className={`flex items-center justify-center gap-2.5 group ${
-                                like && "active"
+                                likeDislike.like && "active"
                             }`}
                         >
-                            <figure
-                                like-button="http://localhost/screenwave-web/public/user/video/like/1/3"
-                                className="mb-2.5 mt-1.5"
-                            >
-                                <i className="cursor-pointer duration-500 hover:drop-shadow-primary fill-secondary group-[.active]:fill-primary">
+                            <figure className="mb-2.5 mt-1.5">
+                                <button
+                                    disabled={btnStatus}
+                                    onClick={likeHandler}
+                                    className="cursor-pointer duration-500 hover:drop-shadow-primary fill-secondary group-[.active]:fill-primary"
+                                >
                                     {assets.svg.like()}
-                                </i>
+                                </button>
                             </figure>
                             <p className="text-secondary group-[.active]:text-primary font-semibold font-mono tracking-wide text-xl">
-                                {likesCount}
+                                {likeDislike.likesCount}
                             </p>
                         </div>
                         <p className="border-r border-solid border-slate-400"></p>
                         <div
                             className={`flex items-center justify-center gap-2.5 group ${
-                                dislike && "active"
+                                likeDislike.dislike && "active"
                             }`}
                         >
                             <figure className="mt-2.5 mb-1.5">
-                                <i className="cursor-pointer duration-500 hover:drop-shadow-primary fill-secondary group-[.active]:fill-primary">
+                                <button
+                                    disabled={btnStatus}
+                                    onClick={dislikeHandler}
+                                    className="cursor-pointer duration-500 hover:drop-shadow-primary fill-secondary group-[.active]:fill-primary"
+                                >
                                     {assets.svg.dislike()}
-                                </i>
+                                </button>
                             </figure>
                             <p className="text-secondary group-[.active]:text-primary  font-semibold font-mono tracking-wide text-xl">
-                                {dislikesCount}
+                                {likeDislike.dislikesCount}
                             </p>
                         </div>
                     </div>

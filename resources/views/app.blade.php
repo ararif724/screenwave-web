@@ -24,6 +24,9 @@
             rel="stylesheet"
         />
 
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script> 
+
         <style>
             #custom-scrollbar::-webkit-scrollbar {
                 width: 6px;
@@ -40,11 +43,38 @@
                 cursor: pointer;
             }
         </style> 
-        @include('client.components.scripts')
+
+        <script>
+            window.asset = (src) => "{{ asset('/') }}" + src; 
+            window.route = (endpoint) => "{{ route('frontend.home') }}" + endpoint; 
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+        </script>
                 
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
         @inertiaHead
+
+        @if (session('error'))
+            <script>
+                Toast.fire({ icon: 'error', text: "{{ session('error') }}"  })
+            </script>
+        @endif
+        @if (session('success'))
+            <script>
+                Toast.fire({ icon: 'success', text: "{{ session('success') }}"  })
+            </script>
+        @endif
     </head>
     <body>
         @inertia 

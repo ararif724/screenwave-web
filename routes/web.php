@@ -23,8 +23,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
-
 Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
     Route::as('callback.')->prefix('callback')->group(function (){
         Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('profileScope');
@@ -37,19 +35,20 @@ Route::as('google.oAuth.')->prefix('google-o-auth')->group(function (){
 // manage the video
 Route::as('frontend.')->group(function(){
     Route::get('/', [FrontendController::class, 'home'])->name('home');
-    Route::get('/video-player/{videoId}', [FrontendController::class, 'videoPlayer'])->name('videoPlayer');
+    Route::post('/logout', [FrontendController::class, 'logout'])->name('logout');
+    Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
+    // Route::get('/video-player/{videoId}', [FrontendController::class, 'videoPlayer'])->name('videoPlayer'); // video player route from frontend
     Route::post('/edit-video-title/{userId}/{videoId}', [VideoController::class, 'editVideoTitle'])->name('editVideoTitle');
 });
 
 Route::as('user.video.')->prefix('user/video')->middleware('auth')->group(function (){
-    Route::get('/like/{userId}/{videoId}', [LikeDislikeController::class, 'like'])->name('like');
-    Route::get('/dislike/{userId}/{videoId}', [LikeDislikeController::class, 'dislike'])->name('dislike');
+    Route::get('/like/{videoId}', [LikeDislikeController::class, 'like'])->name('like');
+    Route::get('/dislike/{videoId}', [LikeDislikeController::class, 'dislike'])->name('dislike');
 
-    Route::post('store-comment/{userId}/{videoId}', [CommentController::class, 'storeComment'])->name('storeComment');
-    Route::post('/edit-comment/{userId}/{videoId}/{id}', [CommentController::class, 'editComment'])->name('editComment');
-    Route::get('/delete-comment/{userId}/{videoId}/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment'); 
+    Route::post('/comment/store', [CommentController::class, 'storeComment'])->name('storeComment');
+    Route::patch('/comment/update/{id}', [CommentController::class, 'updateComment'])->name('updateComment');
+    Route::delete('/comment/delete/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment'); 
 
-    // new
     Route::post('/update-video-title/{videoId}', [VideoController::class, 'updateVideoTitle'])->name('updateVideoTitle');
 });
 

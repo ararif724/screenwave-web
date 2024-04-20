@@ -1749,3 +1749,72 @@ function App() {
 
 
 ---------------------------- app.jsx --------------------------------------------------
+
+
+
+const DropdownItem = ({ icon, title, href, color }) => (
+    <li className="p-2.5 cursor-pointer">
+        <a
+            href={href}
+            style={{ fill: color }}
+            className={`flex gap-6 text-center hover:tracking-wide font-medium duration-500 hover:text-primary`}
+        >
+            <i className="font-light">{icon}</i>
+            <span className="text-sla-600 text-sm text-center">{title}</span>
+        </a>
+    </li>
+);
+{/* <DropdownItem
+                        icon={assets.svg.edit(22, 18)}
+                        color="rgb(6 182 212)"
+                        title="Edit"
+                        href="#"
+                    />
+                    <DropdownItem
+                        icon={assets.svg.team(22, 22)}
+                        color="rgb(244 63 94)"
+                        title="Delete"
+                        href="#"
+                    />
+                    <DropdownItem
+                        icon={assets.svg.xMark(22, 22)}
+                        color="rgb(18 245 200)"
+                        title="Close"
+                        href="#"
+                        setEditMenu
+                    /> */}
+                                    // setNewComments((prev) => [
+                                    //     { ...getNewComment, user },
+                                    //     ...prev,
+                                    // ])
+
+                                    // import App from "./App";
+// import Components from "../components";
+
+// export default function Home({ isAuth, user }) {
+//     return (
+//         <App isAuth={isAuth} user={user}>
+//             <Components.HeaderContents />
+//             <Components.Installation />
+//             <Components.MarketingAudience />
+//         </App>
+//     );
+// }
+// // isAuth, user
+        // return view('frontend.video_player', compact('video', 'currentUserLike', 'currentUserDislike'));
+        // return view('frontend.home');
+            // 'user'=> [
+            //     'id'=> Auth::user()->id,
+            //     'email'=> Auth::user()->email,
+            //     'name'=> Auth::user()->name,
+            //     'picture'=> Auth::user()->picture,
+            //     'created_at'=> Auth::user()->created_at,
+            //     'updated_at'=> Auth::user()->updated_at,
+            // ]
+    // Route::get('/like/{userId}/{videoId}', [LikeDislikeController::class, 'like'])->name('like');
+    // Route::get('/dislike/{userId}/{videoId}', [LikeDislikeController::class, 'dislike'])->name('dislike');
+
+    // Route::post('store-comment/{userId}/{videoId}', [CommentController::class, 'storeComment'])->name('storeComment');
+    // Route::post('/edit-comment/{userId}/{videoId}/{id}', [CommentController::class, 'editComment'])->name('editComment');
+    // Route::get('/delete-comment/{userId}/{videoId}/{id}', [CommentController::class, 'deleteComment'])->name('deleteComment'); 
+

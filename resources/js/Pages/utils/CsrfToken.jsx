@@ -12,3 +12,5 @@ export default function CsrfToken() {
 
     return <input type="hidden" name="_token" id="_token" value={token} />;
 }
+
+export const onlyCsrfToken = { "X-CSRF-TOKEN": getToken() };

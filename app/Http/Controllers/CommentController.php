@@ -8,28 +8,78 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function storeComment($user_id, $video_id, Request $request){
-        $description = $request->description;
+    public function storeComment(Request $request){
+        $description = $request->input('description');
+        $userId = $request->user()->id;
+        $videoId = $request->input('videoId');
 
-        if(empty($description)){
+        if(empty($videoId) || empty($description)){
             return response()->json([
-                'status'=> 403,
+                'status'=> 'error',
                 'message'=> 'Comment Field is Empty!',
-                'type'=> 'error'
+                'data'=> null
             ]);
         }
 
-        $comment = Comment::create(['description'=> $description, 'user_id'=> $user_id, 'video_id'=> $video_id]);
+        $comment = Comment::create(['description'=> $description, 'user_id'=> $userId, 'video_id'=> $videoId]);
+
         return response()->json([
-            'status'=> 200,
+            'status'=> 'success',
             'message'=> 'Comment Added Successfully!',
-            'type'=> 'success',
-            'comment'=> $comment
+            'data'=> $comment
         ]);
-        // return response()->json([$request->all(), $user_id, $video_id]); deleteComment
     }
 
-    public function editComment(string|int $user_id, string|int $video_id, string|int $id, Request $request){
+    public function updateComment($id, Request $request){
+        $description = $request->input('description');
+
+        if(empty($description)){
+            return response()->json([
+                'status'=> 'error',
+                'message'=> 'Comment Field is Empty!',
+                'data'=> null
+            ]);
+        }
+
+        $comment = Comment::find($id);
+        $comment->description = $description;
+        $comment->save();
+
+        return response()->json([
+            'status'=> 'success',
+            'message'=> 'Comment Updated Successfully!',
+            'data'=> $comment
+        ]);
+    }
+
+    public function deleteComment($id){
+        $comment = Comment::find($id);
+
+        if(!$comment){
+            return response()->json([
+                'status'=> 'error',
+                'message'=> 'Could not found any comment for delete!',
+                'data'=> null
+            ]);
+        }
+
+        if($comment->user_id != Auth::id()){
+            return response()->json([
+                'status'=> 'error',
+                'message'=> 'You do not have a permission to delete this comment!',
+                'data'=> null
+            ]);
+        }
+
+        $comment->delete();
+        return response()->json([
+            'status'=> 'success',
+            'message'=> 'Comment Deleted Successfully!',
+            'data'=> null
+        ]);
+    }
+
+    /* public function editComment(string|int $user_id, string|int $video_id, string|int $id, Request $request){
         if(!Auth::check()){
             return redirect()->back()->with('error', 'Your are not authenticate user!');
         }
@@ -46,9 +96,9 @@ class CommentController extends Controller
         if($comment) return redirect()->back()->with('success', 'Comment Updated Successfully!');
 
         return redirect()->back()->with('error', 'A serious error occurred!');
-    }
+    } */
 
-    public function deleteComment(string|int $user_id, string|int $video_id, string|int $id){
+    /* public function deleteComment(string|int $user_id, string|int $video_id, string|int $id){
         if(!Auth::check()){
             return redirect()->back()->with('error', 'Your are not authenticate user!');
         }
@@ -61,5 +111,5 @@ class CommentController extends Controller
         if($comment) return redirect()->back()->with('success', 'Comment Deleted Successfully!');
 
         return redirect()->back()->with('error', 'A serious error occurred!');
-    }
+    } */
 }

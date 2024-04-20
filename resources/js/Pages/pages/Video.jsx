@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Components from "../components";
 import App from "./App";
+import { Provider } from "react-redux";
+import store from "../../redux/store";
 
 export default function ({
     video,
@@ -10,14 +12,16 @@ export default function ({
     user,
 }) {
     return (
-        <App isAuth={isAuth} user={user}>
-            <Components.VideoPlayer
+        <Provider store={store}>
+            <Components.VideoPlayerApp
                 video={{
                     ...video,
                     like: currentUserLike,
                     dislike: currentUserDislike,
                 }}
+                isAuth={isAuth}
+                user={user}
             />
-        </App>
+        </Provider>
     );
 }

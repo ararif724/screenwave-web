@@ -1,7 +1,10 @@
 import React from "react";
 import Comment from "./Comment";
+import { useSelector } from "react-redux";
 
-export default function CommentsList({ comments }) {
+export default function CommentsList() {
+    const { comments } = useSelector((state) => state.video);
+
     return (
         <div
             className="mt-6 max-h-[calc(100vh_-_365px)] overflow-x-hidden pr-3"

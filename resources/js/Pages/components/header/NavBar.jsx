@@ -1,10 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import assets from "../../assets";
 import MainMenuItem from "./MainMenuItem";
+import { useSelector } from "react-redux";
+import CsrfToken from "../../utils/CsrfToken";
 
 export default function NavBar() {
     const [mobileNavbar, setMobileNavbar] = useState(true);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
+    const { isAuth, user } = useSelector((state) => state.auth);
+
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return function (...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    };
+
+    const handleResize = debounce(() => {
+        if (window.innerWidth > 1536) {
+            setMobileNavbar(true);
+        } else {
+            setMobileNavbar(false);
+        }
+    }, 300);
+
+    useEffect(() => {
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
         <div className="fixed top-0 left-0 w-full bg-slate-100 z-50 shadow-xl">
@@ -60,29 +89,46 @@ export default function NavBar() {
                                 <li className="hover:text-slate-900 duration-300 text-slate-700 border-b border-solid border-slate-300 p-4 text-xl 2xl:text-md 2xl:border-0">
                                     <a href="#">Pricing</a>
                                 </li>
-                                <li className="hover:text-slate-900 duration-300 text-slate-700 border-b border-solid border-slate-300 p-4 text-xl 2xl:text-md 2xl:border-0">
-                                    <a href="#">Sign In</a>
-                                </li>
+                                {isAuth ? (
+                                    <form
+                                        method="POST"
+                                        action={window.route("/logout")}
+                                        className="hover:text-slate-900 duration-300 text-slate-700 border-b border-solid border-slate-300 p-4 text-xl 2xl:text-md 2xl:border-0"
+                                    >
+                                        <CsrfToken />
+                                        <button type="submit">Log Out</button>
+                                    </form>
+                                ) : (
+                                    <li className="hover:text-slate-900 duration-300 text-slate-700 border-b border-solid border-slate-300 p-4 text-xl 2xl:text-md 2xl:border-0">
+                                        <a
+                                            href={window.route(
+                                                "/google-o-auth/"
+                                            )}
+                                        >
+                                            Sign In
+                                        </a>
+                                    </li>
+                                )}
                             </ul>
                         )}
 
                         {/* Navbar Action Button */}
                         <div
-                            className="hidden md:!flex flex-row absolute -left-4 top-28 bg-transparent md:bg-slate-100 z-50 md:z-10 min-w-screen w-full md:w-auto max-h-screen md:max-w-auto md:min-w-auto md:max-h-auto md:h-auto md:static items-center justify-center md:justify-end gap-6 md:text-slate-300 overflow-auto md:overflow-visible"
-                            style={{ display: !mobileNavbar ? "none" : "flex" }}
+                            className="flex items-center justify-center gap-5"
+                            // style={{ display: !mobileNavbar ? "none" : "flex" }}
                         >
                             <a
                                 href="#"
-                                className="bg-primary text-slate-200 px-6 py-3 rounded-[35px] border-4 border-primary-outline border-solid capitalize tracking-wide"
+                                className="hidden md:block bg-primary/80 text-slate-100 hover:text-white duration-500 px-6 py-3 rounded-[35px] border-4 border-primary-outline border-solid capitalize tracking-wide hover:bg-primary font-medium"
                             >
                                 get ScreenWave for free
                             </a>
                             <a
                                 href="#"
-                                className="bg-primary-lite text-primary rounded-[35px] border-4 border-primary border-solid capitalize tracking-wide"
+                                className="bg-primary-lite text-primary rounded-[35px] border-4 border-primary border-solid capitalize tracking-wide block"
                             >
                                 <img
-                                    src={assets.images.owner}
+                                    src={user?.picture}
                                     alt="Profile"
                                     className="w-14 h-14 rounded-full"
                                 />
