@@ -111,7 +111,7 @@ class GoogleOAuthController extends Controller
                             'name' => $resp->name,
                             'picture' => $resp->picture,
                             'api_token' => $apiToken,
-                            'identity_token' => $apiToken,
+                            // 'identity_token' => $apiToken,
                         ]
                     );
 

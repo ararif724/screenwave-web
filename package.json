@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "git-push": "git add . && git commit -m 'Complete Project' && git push origin amir-v2",
+        "git-push": "git add . && git commit -m 'Unnecessary codes removed!' && git push origin fresh-master",
         "clear": "php artisan cache:clear && php artisan config:clear && php artisan config:cache && php artisan view:clear && php artisan route:clear && php artisan clear-compiled"
     },
     "devDependencies": {
