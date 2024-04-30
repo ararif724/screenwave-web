@@ -1,0 +1,79 @@
+
+/* <li className="p-1">
+          <a href="#" className="flex gap-6 text-center">
+            <span className="text-red-400">{assets.svg.team(22, 22)}</span>
+            <span className="text-sla-600 text-sm text-center duration-300 hover:text-slate-800">
+              Team Management
+            </span>
+          </a>
+        </li> */
+
+        
+// updateComment={(getUpdatedComment) => {
+//     setNewComments((prev) =>
+//         prev.map((c) =>
+//             c.id === getUpdatedComment.id
+//                 ? { ...c, ...getUpdatedComment }
+//                 : c
+//         )
+//     );
+//     console.log(getUpdatedComment);
+// }}
+// actions={{
+//     editCommentForm,
+//     setEditCommentForm,
+// }}
+// onClick={function () {
+// setEditCommentForm((prev) => ({
+//     ...prev,
+//     status: false,
+// }));
+// }}
+// useEffect(
+//     function () {
+//         setEditCommentForm((prev) => ({
+//             ...prev,
+//             data: { ...prev.data, description: desc },
+//         }));
+//     },
+//     [desc]
+// );
+// const { editCommentForm, setEditCommentForm } = actions || {};
+// console.log(editCommentForm);
+// addNewComment={(getNewComment) =>
+//     setNewComments((prev) => [
+//         { ...getNewComment, user },
+//         ...prev,
+//     ])
+// }
+// comments={newComments}
+// actions={{ editCommentForm, setEditCommentForm }}
+
+// const [newComments, setNewComments] = useState(comments);
+// const [editCommentForm, setEditCommentForm] = useState({
+//     status: false,
+//     data: {},
+// });
+
+// setEditCommentForm((prev) => ({
+//     ...prev,
+//     status: true,
+//     data: comment,
+// }));
+
+{
+    /* {assets.svg.screenWave()} */
+}
+{
+    /* <picture>{assets.svg.logo(160, 100)}</picture> */
+}
+{
+    /* <img src={assets.images.sw} alt="Logo" className="w-40 h-24"/> */
+}
+
+{
+    /* <div className="text-3xl py-2 text-primary font-bold"> ScreenWave </div> */
+}
+{
+    /* increase/decrease the logo height and fixed the header height size ex: the logo height is 100px now */
+}
