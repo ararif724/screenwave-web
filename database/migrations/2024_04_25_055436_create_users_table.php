@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('picture');
             $table->string('email')->unique();
             $table->string('api_token', 50)->unique();
+            $table->text('google_refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

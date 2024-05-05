@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class GoogleOAuthController extends Controller
 {
-    function auth($desktopAppRedirectUrl = null)
+    function auth($sessionId = null)
     {
 
-        session()->forget('desktopAppRedirectUrl');
+        session()->forget('sessionId');
 
-        if ($desktopAppRedirectUrl) {
+        if ($sessionId) {
 
-            session()->put('desktopAppRedirectUrl', $desktopAppRedirectUrl);
+            session()->put('sessionId', $sessionId);
 
             if (Auth::check()) {
                 return $this->redirectToDriveScopeOAuthUrl();
@@ -116,7 +117,7 @@ class GoogleOAuthController extends Controller
 
                     Auth::login($user, true);
 
-                    if (session()->has('desktopAppRedirectUrl')) {
+                    if (session('sessionId')) {
                         return $this->redirectToDriveScopeOAuthUrl();
                     } else {
                         //redirect to dashboard
@@ -152,12 +153,19 @@ class GoogleOAuthController extends Controller
                 isset($resp->refresh_token)
             ) {
 
-                return view('redirect_to_desktop_app', [
-                    'redirectUrl' => session('desktopAppRedirectUrl') . '?data=' . json_encode([
-                        'googleApiRefreshToken' => $resp->refresh_token,
-                        'screenwaveWebApiToken' => Auth::user()->api_token
-                    ])
-                ]);
+                $encryptRefreshToken = Crypt::encryptString($resp->refresh_token);
+
+                $user = User::find(Auth::id());
+                $user->google_refresh_token = $encryptRefreshToken;
+                $user->save();
+
+                $sessionId = session('sessionId');
+
+                session()->setId($sessionId);
+                session()->put('apiToken', Auth::user()->api_token);
+                session()->put('refreshToken', $resp->refresh_token);
+
+                return "<h1><span style='color: green;'>Ma-Shaa'-Allah!</span> Google Drive is connected. You may close the browser.</h1>";
             }
         }
         return response('Bad request', 400);
