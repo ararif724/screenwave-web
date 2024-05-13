@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title')->default('Untitled');
-            $table->string('video_id')->unique();
+            $table->string('video_id')->unique()->comment('Google drive ID of the video');
             $table->unsignedBigInteger('views')->default(0);
+            $table->boolean('processing_competed')->default(false)->comment('Video processing completed on google drive');
             $table->timestamps();
         });
     }

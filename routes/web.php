@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GoogleOAuthController;
 use App\Http\Controllers\VideoController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::prefix('google-o-auth')->group(function () {
+    Route::prefix('/callback')->group(function () {
+        Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('google.oAuth.callback.profileScope');
+        Route::get('/drive-scope', [GoogleOAuthController::class, 'callbackDriveScope'])->name('google.oAuth.callback.driveScope');
+    });
+    Route::get('/{sessionId?}', [GoogleOAuthController::class, 'auth']);
 });
 
 Route::get('/get-session-id', function () {
@@ -42,10 +51,8 @@ Route::get('/get-session-data/{sessionId}', function ($sessionId) {
 
 Route::get('/video/{videoId}', [VideoController::class, 'getVideo'])->name('video');
 
-Route::prefix('google-o-auth')->group(function () {
-    Route::prefix('/callback')->group(function () {
-        Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('google.oAuth.callback.profileScope');
-        Route::get('/drive-scope', [GoogleOAuthController::class, 'callbackDriveScope'])->name('google.oAuth.callback.driveScope');
+Route::middleware('auth')->group(function (){
+    Route::get('user/profile', function (Request $request){
+        return $request->user();
     });
-    Route::get('/{sessionId?}', [GoogleOAuthController::class, 'auth']);
 });
