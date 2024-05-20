@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class VideoController extends Controller
@@ -14,7 +13,7 @@ class VideoController extends Controller
             'videoId' => 'required|unique:videos,video_id'
         ]);
 
-        Video::create([
+        $video = Video::create([
             'title' => $request->get('title', 'Untitled'),
             'video_id' => $request->get('videoId'),
             'user_id' => $request->user()->id,
@@ -23,14 +22,14 @@ class VideoController extends Controller
         return response([
             'success' => true,
             'data' => [
-                'videoUrl' => url('video', ['videoId' => $request->get('videoId')])
+                'videoUrl' => url('video', ['videoId' => $video->id])
             ]
         ]);
     }
 
     function getVideo($videoId)
     {
-        $video = Video::where('video_id', $videoId)->withCount('likes', 'dislikes')->first();
+        $video = Video::where('id', $videoId)->withCount('likes', 'dislikes')->first();
 
         if ($video) {
 
@@ -65,6 +64,6 @@ class VideoController extends Controller
             return $video;
         }
 
-        return abort(404);
+        return abort(404, 'Video not found!');
     }
 }

@@ -10,11 +10,11 @@ class Video extends Model
 
     public function likes()
     {
-        return $this->hasMany(Reaction::class)->where('reaction', 1); //reaction = 1 for likes
+        return $this->hasMany(Reaction::class)->where('reaction_type', 1); //reaction_type = 1 for likes
     }
 
     public function dislikes()
     {
-        return $this->hasMany(Reaction::class)->where('reaction', 2); //reaction = 2 for likes
+        return $this->hasMany(Reaction::class)->where('reaction_type', 2); //reaction_type = 2 for likes
     }
 }
