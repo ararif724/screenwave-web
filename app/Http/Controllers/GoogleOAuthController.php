@@ -193,4 +193,13 @@ class GoogleOAuthController extends Controller
         ];
         return "https://accounts.google.com/o/oauth2/v2/auth?" . http_build_query($googleOAuthQueryParams);
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        if($request->ajax()) return response()->json(['status'=> true, 'message'=> "Logout Successful!"]);
+        return redirect('/');
+    }
 }

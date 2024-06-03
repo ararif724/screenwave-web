@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
 Route::prefix('google-o-auth')->group(function () {
     Route::prefix('/callback')->group(function () {
         Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('google.oAuth.callback.profileScope');
@@ -30,6 +26,8 @@ Route::prefix('google-o-auth')->group(function () {
     });
     Route::get('/{sessionId?}', [GoogleOAuthController::class, 'auth']);
 });
+
+Route::post('/logout', [GoogleOAuthController::class, 'logout'])->name('logout');
 
 Route::middleware('accept.json')->group(function () {
     Route::get('/get-session-id', function () {
@@ -51,7 +49,7 @@ Route::middleware('accept.json')->group(function () {
                 'refreshToken' => session('refreshToken')
             ]
         ]);
-    });
+    }); 
 
     Route::middleware('auth')->group(function () {
         Route::prefix('/video/{videoId}')->group(function () {
@@ -59,10 +57,11 @@ Route::middleware('accept.json')->group(function () {
 
             Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where([
                 'videoId' => '[0-9]+',
-                'reactionType' => '1|2'
+                'reactionType' => '0|1|2'
             ]);
             Route::get('/comments', [CommentController::class, 'getComments']);
             Route::post('/comment', [CommentController::class, 'addComment']);
+            Route::get('/current-user-reaction', [ReactionController::class, 'currentUserReaction']);
         });
 
         Route::put('/comment/{commentId}', [CommentController::class, 'updateComment'])->where('commentId', '[0-9]+');
@@ -74,3 +73,8 @@ Route::middleware('accept.json')->group(function () {
         });
     });
 });
+
+// Define react route last
+Route::get('/f/{any?}', function () {
+    return view('welcome');
+})->name('frontend')->where('any', '.*');

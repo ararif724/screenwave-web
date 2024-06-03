@@ -1,0 +1,131 @@
+
+    const dispatch = useDispatch();
+    const { currentUserReaction, data } = useSelector((state) => state.video);
+    // console.log(currentUserReaction);
+
+    const { name, picture } = user || {};
+    const [isShareActive, setShareActive] = useState(false);
+    const [btnStatus, setBtnStatus] = useState(false);
+    // const [likeDislikes, setLikeDislikes] = useState({
+    //     likes: data?.likes_count,
+    //     dislikes: data?.dislikes_count,
+    // });
+
+    async function likeHandler() {
+        console.log("likeHandler");
+        setBtnStatus(true);
+        switch (currentUserReaction?.reaction_type) {
+            case "0":
+                dispatch(fetchReaction({ videoId: id, reactionType: "1" }));
+                // setLikeDislikes({
+                //     ...likeDislikes,
+                //     likes: likeDislikes.likes + 1,
+                // });
+                console.log("likeHandler");
+                break;
+            case "1":
+                dispatch(fetchReaction({ videoId: id, reactionType: "0" }));
+                // setLikeDislikes({
+                //     ...likeDislikes,
+                //     likes: likeDislikes.likes - 1,
+                // });
+                console.log("likeHandler");
+                break;
+            case "2":
+                dispatch(fetchReaction({ videoId: id, reactionType: "1" }));
+                // setLikeDislikes({
+                //     ...likeDislikes,
+                //     likes: likeDislikes.likes + 1,
+                //     dislikes: likeDislikes.dislikes - 1,
+                // });
+                console.log("likeHandler");
+                break;
+            default:
+                console.log("likeHandler d");
+                break;
+        }
+        setBtnStatus(false);
+    }
+    async function dislikeHandler() {
+        console.log("dislikeHandler");
+        setBtnStatus(true);
+        switch (currentUserReaction?.reaction_type) {
+            case "0":
+                dispatch(fetchReaction({ videoId, reactionType: "2" }));
+                // setLikeDislikes({
+                //     ...likeDislikes,
+                //     likes: likeDislikes.dislikes + 1,
+                // });
+                break;
+            case "1":
+                dispatch(fetchReaction({ videoId, reactionType: "2" }));
+                // setLikeDislikes({
+                //     ...likeDislikes,
+                //     likes: likeDislikes.likes - 1,
+                //     likes: likeDislikes.dislikes + 1,
+                // });
+                break;
+            case "2":
+                dispatch(fetchReaction({ videoId, reactionType: "0" }));
+                // setLikeDislikes({
+                //     ...likeDislikes,
+                //     dislikes: likeDislikes.dislikes - 1,
+                // });
+                break;
+            default:
+                break;
+        }
+        setBtnStatus(false);
+    }
+
+    // async function likeDislikeRequest(type) {
+    //     setBtnStatus(true);
+
+    //     try {
+    //         const url = window.route(`/user/video/${type}/${id}`);
+
+    //         const response = await fetch(url);
+    //         const result = await response.json();
+
+    //         console.log(result);
+
+    //         if (result.status === "success") {
+    //             if (type === "like") {
+    //                 setLikeDislike((prev) => ({
+    //                     ...prev,
+    //                     like: result?.data?.like,
+    //                     dislike: result?.data?.dislike,
+    //                     likesCount: result?.data?.like
+    //                         ? prev.likesCount + 1
+    //                         : prev.likesCount - 1,
+    //                     dislikesCount: prev.dislike
+    //                         ? prev.dislikesCount - 1
+    //                         : prev.dislikesCount,
+    //                 }));
+    //             }
+    //             if (type === "dislike") {
+    //                 setLikeDislike((prev) => ({
+    //                     ...prev,
+    //                     like: result?.data?.like,
+    //                     dislike: result?.data?.dislike,
+    //                     dislikesCount: result?.data?.dislike
+    //                         ? prev.dislikesCount + 1
+    //                         : prev.dislikesCount - 1,
+    //                     likesCount: prev.like
+    //                         ? prev.likesCount - 1
+    //                         : prev.likesCount,
+    //                 }));
+    //             }
+
+    //             return fireToast(result.message, "success");
+    //         }
+
+    //         return fireToast(result.message);
+    //     } catch (error) {
+    //         return fireToast(
+    //             `There is an error occurred "${error?.message}". Please try again later!`
+    //         );
+    //     } finally {
+    //         setBtnStatus(false);
+    //     }
+    // }
