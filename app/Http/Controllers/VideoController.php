@@ -66,4 +66,16 @@ class VideoController extends Controller
 
         return abort(404, 'Video not found!');
     }
+
+    public function editTitle(Request $request, $videoId){
+        $video = Video::find($videoId)->latest('id')->first();
+
+        if ($video && $video->user_id == $request->user()->id) {
+            $video->title = $request->input('title');
+            $video->save();
+            return $video;
+        }
+        
+        return abort(404, 'Video not found!');
+    }
 }

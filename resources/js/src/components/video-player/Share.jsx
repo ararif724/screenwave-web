@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import assets from "../../assets";
+import { Toast } from "../../utils/SwalToast";
 
 export default function Share({ videoId, setShareActive }) {
     const videoIframe = `<iframe frameborder='0' src='https://drive.google.com/file/d/${videoId}/preview' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen=''></iframe>`;
@@ -38,7 +39,7 @@ export default function Share({ videoId, setShareActive }) {
 
     return (
         <div
-            class="fixed top-0 left-0 w-full flex items-center justify-center min-h-screen bg-black/30 z-50 p-2"
+            className="fixed top-0 left-0 w-full flex items-center justify-center min-h-screen bg-black/30 z-50 p-2"
             onClick={function (event) {
                 if (event.target === event.currentTarget) {
                     setShareActive(false);
@@ -96,7 +97,7 @@ export default function Share({ videoId, setShareActive }) {
                         ))}
                     </div>
                     <button
-                        className="text-primary hover:text-primary-dark absolute right-3 rotate-180 top-12 fill-white md:top-[70px] p-2 z-50 rounded-full bg-slate-500 border-[8px] border-white hover:bg-primary hover:drop-shadow-primary duration-500"
+                        className="text-primary hover:text-primary-dark absolute right-3 top-12 fill-white md:top-[70px] p-2 z-50 rounded-full bg-slate-500 border-[8px] border-white hover:bg-primary hover:drop-shadow-primary duration-500"
                         onClick={() => handleScroll(85)}
                     >
                         {assets.svg.rightArrow()}
@@ -112,18 +113,16 @@ export default function Share({ videoId, setShareActive }) {
                     </label>
                     <div className="bg-white py-2 px-4 border-solid border border-slate-300 relative">
                         <i
-                            className="absolute right-2 top-2 p-2 rounded-md border border-secondary/40 inline-flex bg-slate-300 text-xs fill-secondary text-secondary hover:fill-primary duration-300 shadow-primary-deep not-italic cursor-pointer"
+                            className="absolute right-1 top-1 p-2 rounded-md border border-secondary/40 inline-flex bg-slate-300 text-xs fill-secondary text-secondary hover:fill-primary duration-300 shadow-primary-deep not-italic cursor-pointer"
                             onClick={function () {
                                 navigator.clipboard.writeText(
                                     window.location.href
                                 );
 
-                                if (Toast) {
-                                    Toast.fire({
-                                        text: "The shared link copied successfully!",
-                                        icon: "success",
-                                    });
-                                }
+                                Toast.fire({
+                                    text: "The shared link copied successfully!",
+                                    icon: "success",
+                                });
                             }}
                         >
                             <svg
@@ -146,7 +145,7 @@ export default function Share({ videoId, setShareActive }) {
                         htmlFor=""
                         className="text-secondary font-medium text-sm"
                     >
-                        Copy the video's <b className="text-primary">Embed</b>{" "}
+                        Copy the video's <b className="text-primary">Embed</b>
                         link
                     </label>
                     <div className="bg-white py-2 px-4 border-solid border border-slate-300 relative">
@@ -155,12 +154,10 @@ export default function Share({ videoId, setShareActive }) {
                             onClick={function () {
                                 navigator.clipboard.writeText(videoIframe);
 
-                                if (Toast) {
-                                    Toast.fire({
-                                        text: "The shared link copied successfully!",
-                                        icon: "success",
-                                    });
-                                }
+                                Toast.fire({
+                                    text: "The shared link copied successfully!",
+                                    icon: "success",
+                                });
                             }}
                         >
                             <svg

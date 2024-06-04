@@ -1,63 +1,43 @@
 import React, { useState } from "react";
 import assets from "../../assets";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-    deleteCommentData,
     editCommentData,
-} from "../../redux/video/videoSlice";
-import { onlyCsrfToken } from "../../utils/CsrfToken";
+    fetchDeleteComment,
+} from "../../redux/comment/commentSlice";
+import { Toast } from "../../utils/SwalToast";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function CommentEditMenu({ comment, setEditMenu }) {
     const dispatch = useDispatch();
     const [btnStatus, setBtnStatus] = useState(false);
 
+    const { deleteCommentIsLoading, deleteCommentIsError, deleteCommentError } =
+        useSelector((state) => state.comment);
+
     async function deleteCommentHandler() {
-        const conf = confirm(
-            "Are you sure to permanently delete this comment!"
-        );
+        setBtnStatus(true);
 
-        if (!conf) {
-            setEditMenu();
-            return;
-        }
+        const result = await dispatch(await fetchDeleteComment(comment?.id));
 
-        try {
-            const url = window.route(
-                `/user/video/comment/delete/${comment?.id}`
-            );
-
-            const response = await fetch(url, {
-                method: "DELETE",
-                body: JSON.stringify({ _method: "DELETE" }),
-                headers: {
-                    "Content-Type": "application/json",
-                    ...onlyCsrfToken,
-                },
+        if (result?.type === "comment/fetchDeleteComment/fulfilled") {
+            Toast.fire({
+                text: "Comment Deleted Successfully!",
+                icon: "success",
             });
-
-            const result = await response.json();
-
-            if (result.status === "success") {
-                setEditMenu();
-                dispatch(deleteCommentData(comment));
-                return fireToast(result.message, "success");
-            }
-
-            return fireToast(result.message);
-        } catch (error) {
-            return fireToast(
-                `There is an error occurred "${error?.message}". Please try again later!`
-            );
-        } finally {
-            setBtnStatus(false);
+        } else if (deleteCommentIsError) {
+            Toast.fire({
+                text: deleteCommentError,
+                icon: "error",
+            });
+        } else {
+            Toast.fire({
+                text: "Sorry, Failed to delete the comment! ",
+                icon: "error",
+            });
         }
-    }
 
-    function fireToast(text, icon = "error") {
-        Toast.fire({
-            icon,
-            text,
-        });
+        setBtnStatus(false);
     }
 
     return (
@@ -87,18 +67,27 @@ export default function CommentEditMenu({ comment, setEditMenu }) {
                         </button>
                     </li>
                     <li className="p-2.5 cursor-pointer">
-                        <button
-                            className="flex gap-6 text-center hover:tracking-wide font-medium duration-500 hover:text-red-500 fill-red-500"
-                            disabled={btnStatus}
-                            onClick={deleteCommentHandler}
-                        >
-                            <i className="font-light">
-                                {assets.svg.trash(22, 22)}
-                            </i>
-                            <span className="text-sla-600 text-sm text-center">
-                                Delete
-                            </span>
-                        </button>
+                        {deleteCommentIsLoading ? (
+                            <ThreeDots
+                                width={40}
+                                height={40}
+                                color="rgb(239 68 68)"
+                                backgroundColor="hsl(45 100% 72%)" //"rgb(0 158 145)"
+                            />
+                        ) : (
+                            <button
+                                className="flex gap-6 text-center hover:tracking-wide font-medium duration-500 hover:text-red-500 fill-red-500"
+                                disabled={btnStatus}
+                                onClick={deleteCommentHandler}
+                            >
+                                <i className="font-light">
+                                    {assets.svg.trash(22, 22)}
+                                </i>
+                                <span className="text-sla-600 text-sm text-center">
+                                    Delete
+                                </span>
+                            </button>
+                        )}
                     </li>
 
                     <li className="p-2.5 cursor-pointer" onClick={setEditMenu}>

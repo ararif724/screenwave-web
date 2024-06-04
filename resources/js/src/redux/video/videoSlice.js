@@ -6,6 +6,11 @@ const initialState = {
     isError: false,
     error: "Please Wait.",
     reactionError: undefined,
+
+    editTitleIsLoading: false,
+    editTitleIsError: false,
+    editTitleError: undefined,
+    editTitleResponse: {},
 };
 
 export const fetchVideo = createAsyncThunk(
@@ -30,44 +35,20 @@ export const fetchReaction = createAsyncThunk(
     }
 );
 
+export const fetchEditVideoTitle = createAsyncThunk(
+    "video/fetchEditVideoTitle",
+    async function ({ videoId, title }) {
+        const result = (await api.put(`video/${videoId}/edit-title`, { title }))
+            ?.data;
+
+        return result;
+    }
+);
+
 const videoSlice = createSlice({
     name: "video/videoSlice",
     initialState,
-    reducers: {
-        getComments: function (state, action) {
-            state.comments = action.payload.comments;
-        },
-
-        editCommentData: function (state, action) {
-            state.commentEditForm = action.payload.status;
-            state.commentEditableData = action.payload.data;
-        },
-
-        updateCommentData: function (state, action) {
-            console.log(action);
-
-            state.commentEditForm = false;
-
-            const updatedIndex = state.comments.findIndex(
-                (c) => c.id === action.payload.id
-            );
-            if (updatedIndex > -1) {
-                state.comments[updatedIndex] = {
-                    ...state.comments[updatedIndex],
-                    ...action.payload,
-                };
-            }
-        },
-
-        deleteCommentData: function (state, action) {
-            const updatedIndex = state.comments.findIndex(
-                (c) => c.id === action.payload.id
-            );
-            if (updatedIndex > -1) {
-                state.comments.splice(updatedIndex, 1);
-            }
-        },
-    },
+    reducers: {},
     extraReducers: function (builder) {
         builder
             .addCase(fetchVideo.pending, function (state) {
@@ -80,7 +61,6 @@ const videoSlice = createSlice({
                 state.isLoading = false;
                 state.error = undefined;
                 state.data = action.payload.video;
-                // state.comments = action.payload.comments;
                 state.currentUserReaction = action.payload.currentUserReaction;
             })
             .addCase(fetchVideo.rejected, function (state, action) {
@@ -98,14 +78,29 @@ const videoSlice = createSlice({
             })
             .addCase(fetchReaction.rejected, function (state, action) {
                 state.reactionError = action.error.message;
+            })
+
+            // video title edit/update
+            .addCase(fetchEditVideoTitle.pending, function (state) {
+                state.editTitleIsError = false;
+                state.editTitleIsLoading = true;
+                state.editTitleError = "Please Wait.";
+            })
+            .addCase(fetchEditVideoTitle.fulfilled, function (state, action) {
+                state.editTitleIsError = false;
+                state.editTitleIsLoading = false;
+                state.editTitleError = undefined;
+                // state.data = action.payload.video;
+                console.log(action);
+                state.editTitleResponse = action.payload.currentUserReaction;
+            })
+            .addCase(fetchEditVideoTitle.rejected, function (state, action) {
+                state.editTitleIsError = true;
+                state.editTitleIsLoading = false;
+                state.editTitleError = action.error.message;
             });
     },
 });
 
 export default videoSlice.reducer;
-export const {
-    getComments,
-    editCommentData,
-    updateCommentData,
-    deleteCommentData,
-} = videoSlice.actions;
+export const {} = videoSlice.actions;

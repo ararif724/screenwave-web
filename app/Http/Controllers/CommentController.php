@@ -57,7 +57,7 @@ class CommentController extends Controller
 
     function getComments($videoId)
     {
-        $comments = Comment::where('video_id', $videoId)->paginate(20);
+        $comments = Comment::with('user')->where('video_id', $videoId)->latest('id')->paginate(20);
         return $comments;
     }
 }

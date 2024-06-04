@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "sweetalert2/src/sweetalert2.scss";
 import Components from "./components";
 import Video from "./components/video-player";
 import Home from "./components/home";

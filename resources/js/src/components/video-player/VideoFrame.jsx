@@ -2,7 +2,10 @@ import moment from "moment";
 import React, { useState } from "react";
 import assets from "../../assets";
 import CsrfToken from "../../utils/CsrfToken";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEditVideoTitle } from "../../redux/video/videoSlice";
+import { Toast } from "../../utils/SwalToast";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function VideoFrame({
     id,
@@ -13,51 +16,49 @@ export default function VideoFrame({
     userId,
     videoUrl,
 }) {
+    const dispatch = useDispatch();
     const [newTitle, setNewTitle] = useState(title || "");
     const [editTitleForm, setEditTitleForm] = useState(false);
-    const { isAuth, user: user } = useSelector((state) => state.auth) || {};
+    const { check, user } = useSelector((state) => state.auth) || {};
+    const {
+        editTitleIsLoading,
+        editTitleIsError,
+        editTitleError,
+        editTitleResponse,
+    } = useSelector((state) => state.video || {});
 
     async function editTitleHandler(e) {
         e.preventDefault();
+        const result = await dispatch(
+            await fetchEditVideoTitle({ videoId: id, title: newTitle })
+        );
 
-        try {
-            const url = window.route(`/user/video/update-video-title/${id}`);
-
-            if (newTitle.length > 300) {
-                return fireToast(
-                    "Your title length is so much long which more then 300 character"
-                );
-            }
-
-            const response = await fetch(url, {
-                body: new FormData(e.target),
-                method: "POST",
+        if (result?.type === "video/fetchEditVideoTitle/fulfilled") {
+            Toast.fire({
+                text: "This Video title are updated successfully!",
+                icon: "success",
             });
 
-            const result = await response.json();
-
-            if (result.status === "success") {
-                setEditTitleForm(false);
-                return fireToast(result.message, "success");
-            }
-
-            setNewTitle(title);
             setEditTitleForm(false);
-            return fireToast("Something went wrong!");
-        } catch (error) {
-            fireToast(
-                `There is an error occurred "${error?.message}". Please try again later!`
-            );
+            return 0;
         }
 
-        return fireToast("Something went wrong!");
-    }
+        if (result?.type === "video/fetchEditVideoTitle/rejected") {
+            Toast.fire({
+                text: "Something went wrong! " + editTitleError,
+                icon: "error",
+            });
+            setNewTitle(title);
+            return 0;
+        }
 
-    function fireToast(text, icon = "error") {
         Toast.fire({
-            icon,
-            text,
+            text: "Sorry, Failed to update this video title!",
+            icon: "error",
         });
+
+        setNewTitle(title);
+        return 0;
     }
 
     return (
@@ -83,7 +84,7 @@ export default function VideoFrame({
                         </span>
                     </p>
 
-                    {userId === user?.id && (
+                    {userId === user?.id ? (
                         <>
                             {!editTitleForm ? (
                                 <p className="break-words tracking-wide leading-6 pb-2 sm:pb-0 text-2xl md:text-3xl text-secondary">
@@ -110,18 +111,38 @@ export default function VideoFrame({
                                         }
                                         className="w-full border-1 border-primary border-solid outline-none shadow border rounded-md bg-slate-50 h-14 focus:border-2 break-words tracking-wide leading-6 px-4 py-2 text-2xl md:text-3xl text-secondary"
                                     ></textarea>
-                                    <button className="bg-primary !w-12 !h-12 text-white rounded-full border border-slate-400 duration-500 hover:bg-secondary hover:drop-shadow-secondary fill-white flex items-center justify-center">
-                                        {assets.svg.send(20, 17)}
-                                    </button>
-                                    <p
-                                        className="bg-red-400 !w-12 !h-12 text-white rounded-full border border-slate-400 duration-500 hover:bg-red-600 hover:drop-shadow-secondary fill-white flex items-center justify-center cursor-pointer"
-                                        onClick={() => setEditTitleForm(false)}
-                                    >
-                                        {assets.svg.xMark()}
-                                    </p>
+
+                                    {editTitleIsLoading ? (
+                                        <p className="px-4">
+                                            <ThreeDots
+                                                width={40}
+                                                height={40}
+                                                color="rgb(239 68 68)"
+                                                backgroundColor="hsl(45 100% 72%)" //"rgb(0 158 145)"
+                                            />
+                                        </p>
+                                    ) : (
+                                        <>
+                                            <button className="bg-primary !w-12 !h-12 text-white rounded-full border border-slate-400 duration-500 hover:bg-secondary hover:drop-shadow-secondary fill-white flex items-center justify-center">
+                                                {assets.svg.send(20, 17)}
+                                            </button>
+                                            <p
+                                                className="bg-red-400 !w-12 !h-12 text-white rounded-full border border-slate-400 duration-500 hover:bg-red-600 hover:drop-shadow-secondary fill-white flex items-center justify-center cursor-pointer"
+                                                onClick={() =>
+                                                    setEditTitleForm(false)
+                                                }
+                                            >
+                                                {assets.svg.xMark()}
+                                            </p>
+                                        </>
+                                    )}
                                 </form>
                             )}
                         </>
+                    ) : (
+                        <p className="break-words tracking-wide leading-6 pb-2 sm:pb-0 text-2xl md:text-3xl text-secondary">
+                            {newTitle}
+                        </p>
                     )}
                     <small className="text-md font-poppins text-slate-500 italic">
                         {moment(createdAt).format("LLLL")}

@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAddComment } from "../../redux/comment/commentSlice";
 import { useParams } from "react-router-dom";
 import { Comment as CommentLoader } from "react-loader-spinner";
+import { Toast } from "../../utils/SwalToast";
 
 export default function AddComment() {
+    const { id } = useParams();
+    const dispatch = useDispatch();
     const [comment, setComment] = useState("");
 
     const { addCommentIsLoading, addCommentIsError, addCommentError } =
@@ -18,47 +21,25 @@ export default function AddComment() {
         message: addCommentError,
     });
 
-    const dispatch = useDispatch();
-    const { id } = useParams();
-
     async function addCommentHandler(e) {
         e.preventDefault();
         setResponseState({ ...responseState, status: true });
 
-        dispatch(fetchAddComment({ videoId: id, comment }));
+        const result = await dispatch(
+            await fetchAddComment({ videoId: id, comment })
+        );
         setResponseState({ ...responseState, status: false });
 
-        if (!addCommentIsLoading && !addCommentIsError) e.target.reset();
+        if (result?.type === "comment/fetchAddComment/fulfilled") {
+            setComment("");
+            Toast.fire({ text: "Comment Added!", icon: "success" });
+        } else {
+            Toast.fire({
+                text: "Sorry, Failed to add your comment!",
+                icon: "error",
+            });
+        }
     }
-
-    function fireToast(text, icon = "error") {
-        Toast.fire({
-            icon,
-            text,
-        });
-    }
-
-    useEffect(
-        function () {
-            // setResponseState({
-            //     ...responseState,
-            //     loader: addCommentIsLoading,
-            //     error: addCommentIsError,
-            //     message: addCommentError,
-            // });
-
-            if (!addCommentIsLoading && !addCommentIsError) {
-                setComment("");
-            }
-        },
-        [addCommentIsLoading, addCommentIsError]
-    );
-
-    console.log("AddComment => ", {
-        addCommentIsLoading,
-        addCommentIsError,
-        addCommentError,
-    });
 
     return (
         <form className="w-full" onSubmit={addCommentHandler} method="POST">
@@ -90,7 +71,7 @@ export default function AddComment() {
                         </button>
                     )}
 
-                    {true && addCommentIsLoading && (
+                    {addCommentIsLoading && (
                         <CommentLoader
                             width={60}
                             height={60}

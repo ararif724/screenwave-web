@@ -11,18 +11,22 @@ export default function Comment({ comment }) {
         comment: description,
         updated_at,
         created_at,
+        user,
         id,
     } = comment || {};
 
     const [editMenu, setEditMenu] = useState(false);
-    const { check, user } = useSelector((state) => state.auth) || {};
+    const {
+        check,
+        user: { id: authId },
+    } = useSelector((state) => state.auth) || {};
 
     return (
         <div className="p-2 bg-white rounded-md border border-solid border-slate-300 mt-3 relative">
             <div className="flex gap-4">
                 <figure>
                     <img
-                        src={user.picture}
+                        src={user?.picture}
                         className="!w-10 !h-10 !min-w-10 rounded-full border border-primary shadow-main"
                         alt="User Profile Image"
                     />
@@ -32,7 +36,7 @@ export default function Comment({ comment }) {
                         <div className="my-auto">
                             <h1 className="leading-3">
                                 <span className="text-2xl font-medium font-primary capitalize text-primary tracking-wide">
-                                    {user.name}
+                                    {user?.name}
                                 </span>
                                 <br className="block sm:hidden" />
                                 <span className="text-secondary text-sm italic font-light font-poppins sm:ml-3 my-auto leading-[0.1] sm:leading-4">
@@ -41,7 +45,7 @@ export default function Comment({ comment }) {
                             </h1>
                         </div>
 
-                        {check && user?.id === user_id && (
+                        {check && authId === user_id && (
                             <div className="text-end">
                                 <button
                                     onClick={() => setEditMenu(true)}

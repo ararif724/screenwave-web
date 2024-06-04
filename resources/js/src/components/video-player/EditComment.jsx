@@ -4,8 +4,10 @@ import CsrfToken from "../../utils/CsrfToken";
 import { useDispatch, useSelector } from "react-redux";
 import {
     editCommentData,
-    updateCommentData,
-} from "../../redux/video/videoSlice";
+    fetchEditComment,
+} from "../../redux/comment/commentSlice";
+import { Toast } from "../../utils/SwalToast";
+import { Comment } from "react-loader-spinner";
 
 export default function EditComment() {
     const dispatch = useDispatch();
@@ -14,65 +16,50 @@ export default function EditComment() {
     function closeEditForm() {
         dispatch(editCommentData({ status: false, data: {} }));
     }
-    const editableComment = useSelector(
-        (state) => state.comment?.commentEditableData
-    );
-    const [desc, setDesc] = useState(editableComment?.description);
+    const {
+        commentEditableData,
+        editCommentIsLoading,
+        editCommentIsError,
+        editCommentError,
+    } = useSelector((state) => state.comment);
+    const [desc, setDesc] = useState(commentEditableData?.comment);
 
     useEffect(
         function () {
-            setDesc(editableComment?.description);
+            setDesc(commentEditableData?.comment);
         },
-        [editableComment]
+        [commentEditableData]
     );
 
-    async function addCommentHandler(e) {
+    async function editCommentHandler(e) {
         e.preventDefault();
-        // setBtnStatus(true);
+        setBtnStatus(true);
 
-        // try {
-        //     const url = window.route(
-        //         `/user/video/comment/update/${editableComment?.id}`
-        //     );
+        const result = await dispatch(
+            await fetchEditComment({
+                id: commentEditableData?.id,
+                comment: desc,
+            })
+        );
 
-        //     const formData = new FormData(e.target);
-        //     formData.append("_method", "PATCH");
-
-        //     const response = await fetch(url, {
-        //         body: formData,
-        //         method: "POST",
-        //         _method: "PATCH",
-        //         headers: { method: "POST", _method: "PATCH" },
-        //     });
-
-        //     const result = await response.json();
-
-        //     if (result.status === "success") {
-        //         // updateComment(result.data);
-        //         dispatch(updateCommentData(result?.data));
-        //         return fireToast(result.message, "success");
-        //     }
-
-        //     return fireToast(result.message);
-        // } catch (error) {
-        //     return fireToast(
-        //         `There is an error occurred "${error?.message}". Please try again later!`
-        //     );
-        // } finally {
-        //     closeEditForm();
-        //     setBtnStatus(false);
-        // }
-    }
-
-    function fireToast(text, icon = "error") {
-        Toast.fire({
-            icon,
-            text,
-        });
+        if (result?.type === "comment/fetchEditComment/fulfilled") {
+            closeEditForm();
+            Toast.fire({
+                text: "Comment Updated Successfully!",
+                icon: "success",
+            });
+        } else {
+            Toast.fire({
+                text:
+                    "Sorry, Failed to updated the comment! " + editCommentError,
+                icon: "error",
+            });
+        }
+        setBtnStatus(false);
     }
 
     return (
-        <form className="w-full" onSubmit={addCommentHandler} method="POST">
+        <form className="w-full" onSubmit={editCommentHandler} method="POST">
             <CsrfToken />
             {/* Render the Main Comment Text Area*/}
             <textarea
@@ -87,23 +74,34 @@ export default function EditComment() {
 
             <div className="relative">
                 <div className="absolute z-10 p-2 bg-white bottom-3 right-1.5 flex gap-2">
-                    <p
-                        onClick={closeEditForm}
-                        className="bg-green-500 text-white font-white flex gap-1 rounded-lg shadow-main"
-                        disabled={btnStatus}
-                    >
-                        <i className="block p-2 bg-green-500 rounded-lg duration-500 hover:bg-secondary hover:drop-shadow-secondary cursor-pointer">
-                            {assets.svg.close()}
-                        </i>
-                    </p>
-                    <button
-                        className="bg-red-500 text-white font-white flex gap-1 rounded-lg shadow-main"
-                        disabled={btnStatus}
-                    >
-                        <i className="block py-2 px-3 bg-red-500 rounded-lg duration-500 hover:bg-secondary hover:drop-shadow-secondary cursor-pointer">
-                            {assets.svg.send()}
-                        </i>
-                    </button>
+                    {!editCommentIsLoading ? (
+                        <>
+                            <p
+                                onClick={closeEditForm}
+                                className="bg-green-500 text-white font-white flex gap-1 rounded-lg shadow-main"
+                                disabled={btnStatus}
+                            >
+                                <i className="block p-2 bg-green-500 rounded-lg duration-500 hover:bg-secondary hover:drop-shadow-secondary cursor-pointer">
+                                    {assets.svg.close()}
+                                </i>
+                            </p>
+                            <button
+                                className="bg-red-500 text-white font-white flex gap-1 rounded-lg shadow-main"
+                                disabled={btnStatus}
+                            >
+                                <i className="block py-2 px-3 bg-red-500 rounded-lg duration-500 hover:bg-secondary hover:drop-shadow-secondary cursor-pointer">
+                                    {assets.svg.send()}
+                                </i>
+                            </button>
+                        </>
+                    ) : (
+                        <Comment
+                            width={60}
+                            height={60}
+                            color="rgb(239 68 68)"
+                            backgroundColor="hsl(45 100% 72%)" //"rgb(0 158 145)"
+                        />
+                    )}
                 </div>
             </div>
         </form>

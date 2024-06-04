@@ -54,11 +54,13 @@ Route::middleware('accept.json')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::prefix('/video/{videoId}')->group(function () {
             Route::get('/', [VideoController::class, 'getVideo'])->name('video')->where('videoId', '[0-9]+');
-
+            Route::put('/edit-title', [VideoController::class, 'editTitle']);
+            
             Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where([
                 'videoId' => '[0-9]+',
                 'reactionType' => '0|1|2'
             ]);
+            
             Route::get('/comments', [CommentController::class, 'getComments']);
             Route::post('/comment', [CommentController::class, 'addComment']);
             Route::get('/current-user-reaction', [ReactionController::class, 'currentUserReaction']);
