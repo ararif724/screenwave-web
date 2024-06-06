@@ -36,10 +36,10 @@ export default function ProfileBubble({ user }) {
                     </figure>
                     <div className="pb-3 pt-1 text-center leading-5">
                         <h2 className="text-nowrap text-2xl left-5 md:text-3xl font-semibold text-primary">
-                            Syed Amir Ali
+                            {user?.name}
                         </h2>
                         <p className="font-mono text-sm tracking-wide block text-slate-500">
-                            {"syedamirali@gmail.com"}
+                            {user?.email}
                         </p>
                     </div>
                     <div className="px-4 w-full pb-6">
