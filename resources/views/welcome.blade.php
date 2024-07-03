@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    Hello
     <script>
         const api = axios.create({
             baseURL: '{{url('/')}}'

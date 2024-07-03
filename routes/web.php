@@ -5,7 +5,6 @@ use App\Http\Controllers\GoogleOAuthController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
 Route::prefix('google-o-auth')->group(function () {
     Route::prefix('/callback')->group(function () {
         Route::get('/profile-scope', [GoogleOAuthController::class, 'callbackProfileScope'])->name('google.oAuth.callback.profileScope');
@@ -31,7 +26,7 @@ Route::prefix('google-o-auth')->group(function () {
     Route::get('/{sessionId?}', [GoogleOAuthController::class, 'auth']);
 });
 
-Route::middleware('accept.json')->group(function () {
+Route::middleware('accept.json')->prefix('/api')->group(function () {
     Route::get('/get-session-id', function () {
         session()->regenerate(true);
         return response([
@@ -74,3 +69,7 @@ Route::middleware('accept.json')->group(function () {
         });
     });
 });
+
+Route::get('/{path?}', function () {
+    return view('welcome');
+})->name('home')->where('path', '.*');
