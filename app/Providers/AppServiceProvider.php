@@ -20,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $GLOBALS['availableReactionType'] = [0, 1, 2];
+        $GLOBALS['availableReactionTypeDesc'] = [
+            "0 = No Reaction",
+            "1 = Like",
+            "2 = Dislike"
+        ];
     }
 }

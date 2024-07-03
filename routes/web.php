@@ -49,13 +49,10 @@ Route::middleware('accept.json')->prefix('/api')->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::prefix('/video/{videoId}')->group(function () {
-            Route::get('/', [VideoController::class, 'getVideo'])->name('video')->where('videoId', '[0-9]+');
+        Route::prefix('/video/{slug}')->group(function () {
+            Route::get('/', [VideoController::class, 'getVideo']);
 
-            Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where([
-                'videoId' => '[0-9]+',
-                'reactionType' => '1|2'
-            ]);
+            Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where('reactionType', join("|", $GLOBALS['availableReactionType']));
             Route::get('/comments', [CommentController::class, 'getComments']);
             Route::post('/comment', [CommentController::class, 'addComment']);
         });
@@ -71,5 +68,9 @@ Route::middleware('accept.json')->prefix('/api')->group(function () {
 });
 
 Route::get('/{path?}', function () {
-    return view('welcome');
+    return view('home');
 })->name('home')->where('path', '.*');
+
+Route::get('/video/{slug}', function () {
+    return view('home');
+})->name('video');

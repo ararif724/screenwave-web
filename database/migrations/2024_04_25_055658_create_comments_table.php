@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('video_id')->constrained()->cascadeOnDelete();
-            $table->text('comment')->nullable();
+            $table->text('comment');
             $table->timestamps();
         });
     }

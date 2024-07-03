@@ -10,26 +10,28 @@ class VideoController extends Controller
     function saveVideo(Request $request)
     {
         $request->validate([
-            'videoId' => 'required|unique:videos,video_id'
+            'googleDriveVideoId' => 'required|unique:videos,google_drive_video_id'
         ]);
 
         $video = Video::create([
             'title' => $request->get('title', 'Untitled'),
-            'video_id' => $request->get('videoId'),
+            'google_drive_video_id' => $request->get('googleDriveVideoId'),
             'user_id' => $request->user()->id,
         ]);
+        
+        $video->refresh();
 
         return response([
             'success' => true,
             'data' => [
-                'videoUrl' => url('video', ['videoId' => $video->id])
+                'videoUrl' => route('video', ['slug' => $video->slug])
             ]
         ]);
     }
 
-    function getVideo($videoId)
+    function getVideo($slug)
     {
-        $video = Video::where('id', $videoId)->withCount('likes', 'dislikes')->first();
+        $video = Video::where('slug', $slug)->withCount('likes', 'dislikes')->first();
 
         if ($video) {
 
@@ -38,7 +40,7 @@ class VideoController extends Controller
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://www.googleapis.com/drive/v3/files/{$video->video_id}/?key=" . getenv('GOOGLE_APP_API_KEY') . "&fields=videoMediaMetadata",
+                    CURLOPT_URL => "https://www.googleapis.com/drive/v3/files/{$video->google_drive_video_id}/?key=" . getenv('GOOGLE_APP_API_KEY') . "&fields=videoMediaMetadata",
                     CURLOPT_RETURNTRANSFER => true
                 ));
 
@@ -54,12 +56,12 @@ class VideoController extends Controller
             $video->save();
 
             if ($video->processing_competed) {
-                $video->video_url = "https://drive.google.com/file/d/{$video->video_id}/preview";
+                $video->video_url = "https://drive.google.com/file/d/{$video->google_drive_video_id}/preview";
             } else {
-                $video->video_url = "https://www.googleapis.com/drive/v3/files/{$video->video_id}?alt=media&key=" . getenv('GOOGLE_APP_API_KEY');
+                $video->video_url = "https://www.googleapis.com/drive/v3/files/{$video->google_drive_video_id}?alt=media&key=" . getenv('GOOGLE_APP_API_KEY');
             }
 
-            $video->download_url = "https://drive.google.com/uc?export=download&id={$video->video_id}";
+            $video->download_url = "https://drive.google.com/uc?export=download&id={$video->google_drive_video_id}";
 
             return $video;
         }
