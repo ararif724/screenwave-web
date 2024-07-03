@@ -49,12 +49,14 @@ Route::middleware('accept.json')->prefix('/api')->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::prefix('/video/{slug}')->group(function () {
-            Route::get('/', [VideoController::class, 'getVideo']);
+        Route::prefix('/video')->group(function () {
+            Route::get('/{slug}', [VideoController::class, 'getVideo']);
 
-            Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where('reactionType', join("|", $GLOBALS['availableReactionType']));
-            Route::get('/comments', [CommentController::class, 'getComments']);
-            Route::post('/comment', [CommentController::class, 'addComment']);
+            Route::prefix('/{videoId}')->group(function () {
+                Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where('reactionType', join("|", $GLOBALS['availableReactionType']));
+                Route::get('/comments', [CommentController::class, 'getComments']);
+                Route::post('/comment', [CommentController::class, 'addComment']);
+            });
         });
 
         Route::put('/comment/{commentId}', [CommentController::class, 'updateComment'])->where('commentId', '[0-9]+');
