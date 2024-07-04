@@ -48,13 +48,13 @@ Route::middleware('accept.json')->prefix('/api')->group(function () {
         ]);
     });
 
+    Route::get('/video/{slug}', [VideoController::class, 'getVideo']);
+    Route::get('/video/{videoId}/comments', [CommentController::class, 'getComments']);
+
     Route::middleware('auth')->group(function () {
         Route::prefix('/video')->group(function () {
-            Route::get('/{slug}', [VideoController::class, 'getVideo']);
-
             Route::prefix('/{videoId}')->group(function () {
                 Route::post('/reaction/{reactionType}', [ReactionController::class, 'addReaction'])->where('reactionType', join("|", $GLOBALS['availableReactionType']));
-                Route::get('/comments', [CommentController::class, 'getComments']);
                 Route::post('/comment', [CommentController::class, 'addComment']);
             });
         });
