@@ -19,3 +19,7 @@ Route::middleware('auth.api')->group(function () {
     Route::post('/generate-google-api-auth-token', [GoogleOAuthController::class, 'generateAuthToken']);
     Route::post('/save-video', [VideoController::class, 'saveVideo']);
 });
+
+Route::get("/sponsor-text", function () {
+    return 'Sponsored by [http://atlab.com](atlab)';
+});
