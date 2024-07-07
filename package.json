@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "start": "concurrently \"npm run dev\" \"php artisan serve\""
     },
     "devDependencies": {
         "@reduxjs/toolkit": "^2.2.5",
@@ -18,6 +19,7 @@
     },
     "dependencies": {
         "@vitejs/plugin-react": "^4.2.1",
+        "concurrently": "^8.2.2",
         "install": "^0.13.0",
         "moment": "^2.30.1",
         "react-dom": "^18.3.1",
