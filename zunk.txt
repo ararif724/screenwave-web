@@ -1,0 +1,19 @@
+
+/* 
+
+<li className="border border-green-500 bg-green-100/30 rounded-tl rounded-bl border-r-0 border-solid w-8 h-8 items-center justify-center flex text-slate-600 fill-slate-500 duration-500 hover:bg-green-200">
+                        <a href="#">{assets.svg.leftArrow(13, 13)}</a>
+                    </li>
+                    <li className="border border-green-500 bg-green-100/30 border-r-0 border-solid w-8 h-8 items-center justify-center flex text-slate-600 fill-slate-500 group-[.active]:bg-green-500 group-[.active]:text-slate-100 duration-500 hover:bg-green-200">
+                        <a href="#">1</a>
+                    </li>
+                    <li className="border border-green-500 bg-green-100/30 border-r-0 border-solid w-8 h-8 items-center justify-center flex text-slate-600 fill-slate-500 duration-500 hover:bg-green-200">
+                        <a href="#">2</a>
+                    </li>
+                    <li className="border border-green-500 bg-green-100/30 border-r-0 border-solid w-8 h-8 items-center justify-center flex text-slate-600 fill-slate-500 duration-500 hover:bg-green-200">
+                        <a href="#">3</a>
+                    </li>
+                    <li className="border border-green-500 bg-green-100/30 rounded-tr rounded-br border-solid w-8 h-8 items-center justify-center flex text-slate-600 fill-slate-500 duration-500 hover:bg-green-200">
+                        <a href="#">{assets.svg.rightArrow(14, 14)}</a>
+                    </li>
+*/
